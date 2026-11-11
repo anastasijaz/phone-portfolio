@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------
+   Material Design 3 tokens (rose seed, light + dark schemes)
+   Change the look of the whole site by editing these variables.
+   --------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  /* Color roles */
+  --md-primary: #a23d4a;
+  --md-on-primary: #ffffff;
+  --md-primary-container: #ffdadc;
+  --md-on-primary-container: #40000f;
+  --md-secondary: #765658;
+  --md-on-secondary: #ffffff;
+  --md-secondary-container: #ffdadb;
+  --md-on-secondary-container: #2c1517;
+  --md-tertiary: #775930;
+  --md-on-tertiary: #ffffff;
+  --md-tertiary-container: #ffddb4;
+  --md-on-tertiary-container: #2a1800;
+  --md-error: #ba1a1a;
+  --md-on-error: #ffffff;
+  --md-error-container: #ffdad6;
+  --md-on-error-container: #410002;
+  --md-success: #1f6c3a;
+  --md-on-success: #ffffff;
+  --md-success-container: #b7f1c2;
+  --md-on-success-container: #00210c;
+  --md-surface: #fff8f7;
+  --md-on-surface: #22191a;
+  --md-surface-variant: #f4ddde;
+  --md-on-surface-variant: #524344;
+  --md-surface-container-lowest: #ffffff;
+  --md-surface-container-low: #fff0f0;
+  --md-surface-container: #fceaea;
+  --md-surface-container-high: #f6e4e4;
+  --md-surface-container-highest: #f0dedf;
+  --md-inverse-surface: #382e2f;
+  --md-inverse-on-surface: #feedee;
+  --md-outline: #857374;
+  --md-outline-variant: #d7c1c2;
+  --md-scrim: #000000;
+
+  /* Wallpaper and page background around the phone */
+  --wallpaper:
+    radial-gradient(120% 70% at 0% 0%, #ffd3d9 0%, transparent 60%),
+    radial-gradient(90% 60% at 100% 35%, #ffe1c2 0%, transparent 60%),
+    radial-gradient(120% 80% at 50% 110%, #f1c1cc 0%, transparent 65%),
+    linear-gradient(180deg, #fff3f2 0%, #fbe6e8 100%);
+  --page-bg: #efe3e3;
+  --frame: #1d1b1c;
+
+  /* Typography (font shorthand: weight size/line-height family) */
+  --md-font-brand: 'Roboto Flex', Roboto, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --md-font-plain: 'Roboto Flex', Roboto, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --md-display-small: 400 36px/44px var(--md-font-brand);
+  --md-headline-large: 400 32px/40px var(--md-font-brand);
+  --md-headline-medium: 400 28px/36px var(--md-font-brand);
+  --md-headline-small: 400 24px/32px var(--md-font-brand);
+  --md-title-large: 400 22px/28px var(--md-font-brand);
+  --md-title-medium: 500 16px/24px var(--md-font-plain);
+  --md-title-small: 500 14px/20px var(--md-font-plain);
+  --md-body-large: 400 16px/24px var(--md-font-plain);
+  --md-body-medium: 400 14px/20px var(--md-font-plain);
+  --md-body-small: 400 12px/16px var(--md-font-plain);
+  --md-label-large: 500 14px/20px var(--md-font-plain);
+  --md-label-medium: 500 12px/16px var(--md-font-plain);
+  --md-label-small: 500 11px/16px var(--md-font-plain);
+
+  /* Shape */
+  --md-shape-xs: 4px;
+  --md-shape-s: 8px;
+  --md-shape-m: 12px;
+  --md-shape-l: 16px;
+  --md-shape-xl: 28px;
+
+  /* Elevation (M3 key + ambient shadow pairs) */
+  --md-elevation-1: 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+  --md-elevation-2: 0 1px 2px rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+  --md-elevation-3: 0 1px 3px rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
+  --md-elevation-4: 0 2px 3px rgb(0 0 0 / 0.3), 0 6px 10px 4px rgb(0 0 0 / 0.15);
+  --md-elevation-5: 0 4px 4px rgb(0 0 0 / 0.3), 0 8px 12px 6px rgb(0 0 0 / 0.15);
+
+  /* State layer opacities */
+  --md-state-hover: 0.08;
+  --md-state-focus: 0.1;
+
+  /* Motion */
+  --md-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --md-primary: #ffb2b9;
+    --md-on-primary: #63101f;
+    --md-primary-container: #832634;
+    --md-on-primary-container: #ffdadc;
+    --md-secondary: #e5bdbf;
+    --md-on-secondary: #44292b;
+    --md-secondary-container: #5c3f41;
+    --md-on-secondary-container: #ffdadb;
+    --md-tertiary: #e8c08e;
+    --md-on-tertiary: #442b06;
+    --md-tertiary-container: #5d4219;
+    --md-on-tertiary-container: #ffddb4;
+    --md-error: #ffb4ab;
+    --md-on-error: #690005;
+    --md-error-container: #93000a;
+    --md-on-error-container: #ffdad6;
+    --md-success: #8dd89c;
+    --md-on-success: #003918;
+    --md-success-container: #005226;
+    --md-on-success-container: #b7f1c2;
+    --md-surface: #1a1112;
+    --md-on-surface: #f0dedf;
+    --md-surface-variant: #524344;
+    --md-on-surface-variant: #d7c1c2;
+    --md-surface-container-lowest: #140c0d;
+    --md-surface-container-low: #22191a;
+    --md-surface-container: #271d1e;
+    --md-surface-container-high: #322828;
+    --md-surface-container-highest: #3d3233;
+    --md-inverse-surface: #f0dedf;
+    --md-inverse-on-surface: #382e2f;
+    --md-outline: #a08c8d;
+    --md-outline-variant: #524344;
+
+    --wallpaper:
+      radial-gradient(120% 70% at 0% 0%, #5a1f2a 0%, transparent 60%),
+      radial-gradient(90% 60% at 100% 35%, #4a3418 0%, transparent 60%),
+      radial-gradient(120% 80% at 50% 110%, #3d1822 0%, transparent 65%),
+      linear-gradient(180deg, #1f1415 0%, #170e0f 100%);
+    --page-bg: #0e0909;
+    --frame: #000000;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Base
+   --------------------------------------------------------------- */
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--md-on-surface);
+  font: var(--md-body-medium);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+:focus-visible {
+  outline: 2px solid var(--md-primary);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------
+   Type scale + helpers
+   --------------------------------------------------------------- */
+@layer components {
+  .type-display-small { font: var(--md-display-small); letter-spacing: 0; }
+  .type-headline-large { font: var(--md-headline-large); letter-spacing: 0; }
+  .type-headline-medium { font: var(--md-headline-medium); letter-spacing: 0; }
+  .type-headline-small { font: var(--md-headline-small); letter-spacing: 0; }
+  .type-title-large { font: var(--md-title-large); letter-spacing: 0; }
+  .type-title-medium { font: var(--md-title-medium); letter-spacing: 0.15px; }
+  .type-title-small { font: var(--md-title-small); letter-spacing: 0.1px; }
+  .type-body-large { font: var(--md-body-large); letter-spacing: 0.5px; }
+  .type-body-medium { font: var(--md-body-medium); letter-spacing: 0.25px; }
+  .type-body-small { font: var(--md-body-small); letter-spacing: 0.4px; }
+  .type-label-large { font: var(--md-label-large); letter-spacing: 0.1px; }
+  .type-label-medium { font: var(--md-label-medium); letter-spacing: 0.5px; }
+  .type-label-small { font: var(--md-label-small); letter-spacing: 0.5px; }
+
+  .wallpaper { background: var(--wallpaper); }
+  .phone-frame-bg { background: var(--frame); }
+
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+/* ---------------------------------------------------------------
+   Ripple + state layer
+   --------------------------------------------------------------- */
+.state-layer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.state-layer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 150ms linear;
+  pointer-events: none;
+  z-index: -1;
+}
+@media (hover: hover) {
+  .state-layer:hover::before { opacity: var(--md-state-hover); }
+}
+.state-layer:focus-visible::before { opacity: var(--md-state-focus); }
+
+.ripple {
+  position: absolute;
+  border-radius: 9999px;
+  background: currentColor;
+  pointer-events: none;
+  transform: scale(0);
+  opacity: 0.16;
+  animation: md-ripple 550ms var(--md-easing-standard) forwards;
+  z-index: -1;
+}
+@keyframes md-ripple {
+  60% { opacity: 0.14; }
+  100% { transform: scale(1); opacity: 0; }
+}
+@keyframes md-ripple-fade {
+  from { opacity: 0.12; }
+  to { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ripple {
+    transform: scale(1);
+    animation: md-ripple-fade 300ms linear forwards;
+  }
+}
+
+/* react-pdf: fit pages to the phone width */
+.react-pdf__Page canvas {
+  max-width: 100%;
+  height: auto !important;
+}
