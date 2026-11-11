@@ -4,7 +4,7 @@ import { Pressable, type PressableProps } from './Pressable';
 type Variant = 'filled' | 'tonal' | 'outlined' | 'text';
 
 const variants: Record<Variant, string> = {
-  filled: 'bg-primary text-on-primary hover:shadow-elev-1',
+  filled: 'bg-brand-gradient shadow-elev-1 hover:shadow-elev-2',
   tonal: 'bg-secondary-container text-on-secondary-container hover:shadow-elev-1',
   outlined: 'border border-outline text-primary',
   text: 'text-primary px-3',
@@ -43,7 +43,7 @@ interface IconButtonProps extends PressableProps {
 export function IconButton({ icon: Icon, label, variant = 'standard', size = 24, className = '', ...rest }: IconButtonProps) {
   const v =
     variant === 'filled'
-      ? 'bg-primary text-on-primary'
+      ? 'bg-brand-gradient'
       : variant === 'tonal'
         ? 'bg-secondary-container text-on-secondary-container'
         : 'text-on-surface-variant';

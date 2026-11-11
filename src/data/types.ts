@@ -10,7 +10,9 @@ export type Media =
   | { type: 'image'; src: string; alt: string; caption?: string }
   | { type: 'video'; src: string; poster?: string; caption?: string }
   /** Figma: paste the link from Share → "Get embed code" (the https://embed.figma.com/... or figma.com/embed?... URL). */
-  | { type: 'figma'; embedUrl: string; title: string; caption?: string };
+  | { type: 'figma'; embedUrl: string; title: string; caption?: string }
+  /** A button that opens a live prototype or site in a new tab (e.g. Lovable, Framer). */
+  | { type: 'link'; href: string; label: string; caption?: string };
 
 export interface Quote {
   text: string;
@@ -35,6 +37,9 @@ export interface ProjectSection {
 
 export type ProjectStatusTone = 'complete' | 'progress' | 'hackathon' | 'side' | 'concept';
 
+/** Filter pills on the home screen. A project can be in several. */
+export type ProjectCategory = 'mobile' | 'web' | 'social' | 'health' | 'internal';
+
 export interface Project {
   /** Used for the deep link: #/<id> */
   id: string;
@@ -44,8 +49,10 @@ export interface Project {
   icon: LucideIcon;
   /** Optional image icon in /public, overrides `icon` (square, at least 192×192). */
   iconImage?: string;
-  /** Icon tile colors */
+  /** Icon tile colors: one solid background, white glyph */
   iconColors: { bg: string; fg: string };
+  /** Which filter pills show this project */
+  categories: ProjectCategory[];
   tagline: string;
   status: { label: string; tone: ProjectStatusTone };
   role: string;
@@ -64,17 +71,20 @@ export interface Project {
   };
 }
 
+/** Timeline color groups; colors live in src/index.css (--cat-*) */
+export type TimelineCategory = 'hackathon' | 'university' | 'work' | 'project';
+
 export interface TimelineEntry {
-  /** ISO date, "YYYY-MM" or "YYYY-MM-DD". Entries are sorted by this automatically. */
+  /** "YYYY", "YYYY-MM" or "YYYY-MM-DD" */
   date: string;
   /** Optional end date, or "present" */
   end?: string;
   title: string;
+  /** Role or short description */
   subtitle: string;
-  /** Hash route to open, e.g. "solhof" or "settings/education" */
+  /** Hash route to open, e.g. "zollhof" or "settings/education" */
   link: string;
-  /** Color of the event chip */
-  color: 'primary' | 'secondary' | 'tertiary' | 'success';
+  category: TimelineCategory;
 }
 
 export interface ListEntry {

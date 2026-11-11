@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Settings } from 'lucide-react';
 import { getProject } from '../data/projects';
+import { whyTinder } from '../data/whyTinder';
 import { Button } from '../components/Buttons';
 import { Pressable } from '../components/Pressable';
 import { routeHref } from '../hooks/useHashRoute';
@@ -9,7 +10,10 @@ import { useApp } from '../lib/app-context';
 const appInfo = (path: string) => {
   const key = path.split('/')[0];
   if (key === 'settings') {
-    return { name: 'Settings', subtitle: 'Profile, CV and contact', icon: Settings, colors: { bg: '#524344', fg: '#ffeeee' } };
+    return { name: 'Settings', subtitle: 'Profile, CV and contact', icon: Settings, colors: { bg: '#6b5a54', fg: '#ffffff' } };
+  }
+  if (key === whyTinder.id) {
+    return { name: whyTinder.appName, subtitle: whyTinder.subtitle, icon: whyTinder.icon, colors: whyTinder.iconColors };
   }
   const p = getProject(key);
   return p ? { name: p.name, subtitle: p.tagline, icon: p.icon, colors: p.iconColors } : null;

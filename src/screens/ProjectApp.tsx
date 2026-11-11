@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import type { Project, ProjectSection, ProjectStatusTone } from '../data/types';
 import { projects } from '../data/projects';
+import { profile } from '../data/settings';
 import { AppScreen, useScrollRoot } from '../components/AppScreen';
 import { Button, IconButton } from '../components/Buttons';
 import { MediaItem } from '../components/Media';
@@ -44,13 +45,13 @@ function SectionCard({ title, icon: Icon, section, index }: { title: string; ico
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15, root: root ?? undefined }}
       transition={{ duration: 0.4, ease: [0.2, 0, 0, 1] }}
-      className={`rounded-shape-xl p-5 ${isNext ? 'bg-primary-container text-on-primary-container' : 'bg-surface-container-low text-on-surface shadow-elev-1'}`}
+      className={`rounded-shape-xl p-5 ${isNext ? 'bg-primary-container text-on-primary-container' : 'surface-card text-on-surface'}`}
       aria-labelledby={`card-${index}`}
     >
       <div className="mb-3 flex items-center gap-3">
         <span
           className={`flex h-10 w-10 items-center justify-center rounded-full ${
-            isNext ? 'bg-primary text-on-primary' : 'bg-secondary-container text-on-secondary-container'
+            isNext ? 'bg-brand-gradient' : 'bg-secondary-container text-on-secondary-container'
           }`}
           aria-hidden
         >
@@ -120,7 +121,7 @@ export function ProjectApp({ project }: { project: Project }) {
     const url = `${window.location.origin}${window.location.pathname}#/${project.id}`;
     try {
       if (navigator.share) {
-        await navigator.share({ title: `${project.name} · Pelagija Zlatic`, text: project.tagline, url });
+        await navigator.share({ title: `${project.name} · ${profile.name}`, text: project.tagline, url });
       } else {
         await navigator.clipboard.writeText(url);
         setCopied(true);

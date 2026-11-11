@@ -34,10 +34,13 @@ export function Pressable({ children, className = '', href, onClick, disabled, t
 
   const onPointerDown = useCallback((e: PointerEvent<HTMLElement>) => {
     if (disabled) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const size = Math.hypot(rect.width, rect.height) * 2;
-    const x = e.clientX - rect.left - size / 2;
-    const y = e.clientY - rect.top - size / 2;
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    // The phone frame can be scaled down; work in the element's own (unscaled) pixels.
+    const s = rect.width / el.offsetWidth || 1;
+    const size = Math.hypot(el.offsetWidth, el.offsetHeight) * 2;
+    const x = (e.clientX - rect.left) / s - size / 2;
+    const y = (e.clientY - rect.top) / s - size / 2;
     setRipples((rs) => [...rs, { id: performance.now() + Math.random(), x, y, size }]);
   }, [disabled]);
 

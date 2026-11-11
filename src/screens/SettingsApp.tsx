@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Briefcase, ChevronRight, FileText, GraduationCap, Phone, Sparkles, User } from 'lucide-react';
-import { profile } from '../data/settings';
+import { contact, profile } from '../data/settings';
 import { AppScreen } from '../components/AppScreen';
 import { ListRow } from '../components/ListRow';
 import { MaterialSwitch } from '../components/MaterialSwitch';
@@ -19,7 +19,13 @@ const rows = [
   { id: 'skills', icon: Sparkles, title: 'Skills', subtitle: 'Product, design, technical', tone: 'tertiary' },
   { id: 'about', icon: User, title: 'About me', subtitle: 'Gym, squash and padel', tone: 'primary' },
   { id: 'cv', icon: FileText, title: 'CV', subtitle: 'Preview, share or download', tone: 'secondary' },
-  { id: 'contact', icon: Phone, title: 'Contact', subtitle: 'Call or email me', tone: 'tertiary' },
+  {
+    id: 'contact',
+    icon: Phone,
+    title: 'Contact',
+    subtitle: contact.phoneHref ? 'Call or email me' : 'Email or LinkedIn',
+    tone: 'tertiary',
+  },
 ] as const;
 
 function SubScreen({ sub }: { sub: string }) {
@@ -82,7 +88,7 @@ export function SettingsApp({ sub }: { sub?: string }) {
           </label>
 
           {/* Settings list */}
-          <nav aria-label="Profile sections" className="overflow-hidden rounded-shape-xl bg-surface-container-low">
+          <nav aria-label="Profile sections" className="overflow-hidden rounded-shape-xl surface-card">
             {rows.map((r, i) => (
               <div key={r.id} className={i > 0 ? 'border-t border-outline-variant' : ''}>
                 <ListRow

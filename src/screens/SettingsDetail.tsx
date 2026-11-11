@@ -8,7 +8,7 @@ function EntryList({ entries }: { entries: ListEntry[] }) {
       {entries.map((e) => {
         const Icon = e.icon;
         return (
-          <li key={e.title + e.subtitle} className="rounded-shape-xl bg-surface-container-low p-4">
+          <li key={e.title + e.subtitle} className="rounded-shape-xl surface-card p-4">
             <div className="flex gap-4">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-container text-on-primary-container" aria-hidden>
                 <Icon size={20} />
@@ -57,7 +57,7 @@ export function SkillsScreen() {
     <AppScreen title="Skills" transition="push">
       <div className="flex flex-col gap-3 px-4 pb-10 pt-2">
         {skills.map((g) => (
-          <section key={g.title} className="rounded-shape-xl bg-surface-container-low p-4">
+          <section key={g.title} className="rounded-shape-xl surface-card p-4">
             <h3 className="type-title-small mb-3 text-primary">{g.title}</h3>
             <ul className="flex flex-wrap gap-2">
               {g.skills.map((s) => (
@@ -77,9 +77,9 @@ export function AboutScreen() {
   return (
     <AppScreen title="About me" transition="push">
       <div className="flex flex-col gap-4 px-4 pb-10 pt-2">
-        <p className="type-body-large rounded-shape-xl bg-surface-container-low p-5">{about.intro}</p>
+        <p className="type-body-large rounded-shape-xl surface-card p-5">{about.intro}</p>
         <h3 className="type-title-small px-4 text-primary">Hobbies</h3>
-        <ul className="overflow-hidden rounded-shape-xl bg-surface-container-low">
+        <ul className="overflow-hidden rounded-shape-xl surface-card">
           {about.hobbies.map((h, i) => {
             const Icon = h.icon;
             return (

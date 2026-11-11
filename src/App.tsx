@@ -10,14 +10,18 @@ import { HomeScreen } from './screens/HomeScreen';
 import { ProjectApp } from './screens/ProjectApp';
 import { SettingsApp } from './screens/SettingsApp';
 import { RecentsScreen } from './screens/RecentsScreen';
+import { WhyTinderApp } from './screens/WhyTinderApp';
+import { whyTinder } from './data/whyTinder';
+import { BEZEL, DEVICE_H, DEVICE_W, SCREEN_H, SCREEN_W, useFrameScale } from './hooks/useFrameScale';
 
 const SETTINGS_SUBS = ['experience', 'education', 'skills', 'about', 'contact', 'cv'];
 
 export default function App() {
   const { segments, path, navigate } = useHashRoute();
-  const [openToInternships, setOpenToInternships] = useLocalStorage('pz:open-to-internships', openToInternshipsDefault);
+  const [openToInternships, setOpenToInternships] = useLocalStorage('az:open-to-internships', openToInternshipsDefault);
   const [recents, setRecents] = useState<string[]>([]);
-  const tapOrigin = useRef({ x: 195, y: 400 });
+  const tapOrigin = useRef({ x: 206, y: 450 });
+  const { framed, scale } = useFrameScale();
   const mainRef = useRef<HTMLElement>(null);
   const lastAppPath = useRef('');
 
@@ -27,7 +31,8 @@ export default function App() {
   const isSettings = top === 'settings';
   const settingsSub = isSettings && SETTINGS_SUBS.includes(segments[1] ?? '') ? segments[1] : undefined;
   const isRecents = top === 'recents';
-  const appKey = project ? project.id : isSettings ? 'settings' : null;
+  const isWhyTinder = top === whyTinder.id;
+  const appKey = project ? project.id : isSettings ? 'settings' : isWhyTinder ? whyTinder.id : null;
 
   // Unknown routes fall back to the home screen
   useEffect(() => {
@@ -41,9 +46,9 @@ export default function App() {
     if (appKey) {
       setRecents((rs) => [path, ...rs.filter((r) => r.split('/')[0] !== appKey)].slice(0, 8));
     }
-    const name = project?.name ?? (isSettings ? 'Settings' : null);
+    const name = project?.name ?? (isSettings ? 'Settings' : isWhyTinder ? whyTinder.appName : null);
     document.title = name ? `${name} · ${profile.name}` : `${profile.name} · Product Portfolio`;
-  }, [path, appKey, isRecents, isSettings, project]);
+  }, [path, appKey, isRecents, isSettings, isWhyTinder, project]);
 
   const back = useCallback(() => {
     if (isRecents) navigate(lastAppPath.current);
@@ -63,10 +68,14 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, [back]);
 
-  // Remember where the user tapped, so apps zoom open from the icon
+  // Remember where the user tapped, so apps zoom open from the icon.
+  // The frame may be scaled down, so convert from screen pixels to the phone's own pixels.
   const recordTap = (e: PointerEvent) => {
-    const rect = mainRef.current?.getBoundingClientRect();
-    if (rect) tapOrigin.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    const el = mainRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const s = rect.width / el.offsetWidth || 1;
+    tapOrigin.current = { x: (e.clientX - rect.left) / s, y: (e.clientY - rect.top) / s };
   };
 
   const ctx = useMemo<AppState>(
@@ -85,29 +94,47 @@ export default function App() {
     [navigate, back, openToInternships, setOpenToInternships, recents],
   );
 
+  const screen = (
+    <div
+      style={framed ? { width: SCREEN_W, height: SCREEN_H } : undefined}
+      className={`wallpaper relative overflow-hidden ${framed ? 'rounded-[44px]' : 'h-[100dvh] w-screen'}`}
+    >
+      <StatusBar punchHole={framed} />
+      <main ref={mainRef} onPointerDownCapture={recordTap} className="absolute inset-x-0 bottom-12 top-0 overflow-hidden">
+        <HomeScreen hidden={!!appKey || isRecents} />
+        <AnimatePresence>
+          {project && <ProjectApp key={project.id} project={project} />}
+          {isSettings && <SettingsApp key="settings" sub={settingsSub} />}
+          {isWhyTinder && <WhyTinderApp key={whyTinder.id} />}
+        </AnimatePresence>
+        <AnimatePresence>{isRecents && <RecentsScreen key="recents" />}</AnimatePresence>
+      </main>
+      <NavBar onBack={back} onHome={() => navigate('')} onRecents={goRecents} solid={!!appKey || isRecents} />
+    </div>
+  );
+
   return (
     <AppContext.Provider value={ctx}>
       <MotionConfig reducedMotion="user">
-        <div className="flex min-h-[100dvh] items-center justify-center sm:p-6">
-          <div className="relative">
-            {/* Hardware buttons, desktop only */}
-            <span className="phone-frame-bg absolute -right-[3px] top-[120px] hidden h-16 w-[4px] rounded-r sm:block" aria-hidden />
-            <span className="phone-frame-bg absolute -right-[3px] top-[210px] hidden h-24 w-[4px] rounded-r sm:block" aria-hidden />
-
-            <div className="wallpaper relative h-[100dvh] w-screen overflow-hidden sm:h-[min(860px,calc(100dvh-48px))] sm:w-[400px] sm:rounded-[48px] sm:border-[10px] sm:border-[color:var(--frame)] sm:shadow-elev-5">
-              <StatusBar />
-              <main ref={mainRef} onPointerDownCapture={recordTap} className="absolute inset-x-0 bottom-12 top-0 overflow-hidden">
-                <HomeScreen hidden={!!appKey || isRecents} />
-                <AnimatePresence>
-                  {project && <ProjectApp key={project.id} project={project} />}
-                  {isSettings && <SettingsApp key="settings" sub={settingsSub} />}
-                </AnimatePresence>
-                <AnimatePresence>{isRecents && <RecentsScreen key="recents" />}</AnimatePresence>
-              </main>
-              <NavBar onBack={back} onHome={() => navigate('')} onRecents={goRecents} solid={!!appKey || isRecents} />
+        {framed ? (
+          // Desktop / tablet: the device, scaled to fit the window
+          <div className="flex h-[100dvh] w-screen items-center justify-center">
+            <div style={{ width: DEVICE_W * scale, height: DEVICE_H * scale }} className="relative">
+              <div
+                style={{ width: DEVICE_W, height: DEVICE_H, transform: `scale(${scale})`, transformOrigin: 'top left', padding: BEZEL }}
+                className="phone-frame-bg absolute left-0 top-0 rounded-[56px] shadow-elev-5 ring-1 ring-black/40"
+              >
+                {/* Hardware buttons: power, then volume rocker */}
+                <span className="phone-frame-bg absolute -right-[4px] top-[190px] h-[72px] w-[5px] rounded-r-md" aria-hidden />
+                <span className="phone-frame-bg absolute -right-[4px] top-[300px] h-[128px] w-[5px] rounded-r-md" aria-hidden />
+                {screen}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          // Real phone: no frame, fill the screen
+          screen
+        )}
       </MotionConfig>
     </AppContext.Provider>
   );

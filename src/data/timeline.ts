@@ -2,58 +2,148 @@ import type { TimelineEntry } from './types';
 
 /* ------------------------------------------------------------------
    Career path shown in the calendar widget on the home screen.
-   Entries are grouped by year and sorted by `date` automatically,
-   so the order in this list does not matter.
-   `link` is a route: a project id ("solhof") or a settings page
-   ("settings/education", "settings/experience").
+   The widget sorts entries itself, newest first (by end date, so
+   ongoing and recently finished entries come first). The order in
+   this list does not matter.
 
-   [PLACEHOLDER] All dates below are guesses. Replace them with real ones.
+   date / end: "YYYY", "YYYY-MM" or "YYYY-MM-DD"; end can be "present".
+   category:   hackathon | university | work | project (sets the color)
+   link:       a project id ("zollhof") or a settings page
+               ("settings/education", "settings/experience").
    ------------------------------------------------------------------ */
 
 export const timeline: TimelineEntry[] = [
+  // ---- Work -------------------------------------------------------
   {
-    date: '2022-10', // [PLACEHOLDER: date]
-    title: "Started bachelor's degree",
-    subtitle: '[PLACEHOLDER: University]',
+    date: '2020-02',
+    end: '2023-05',
+    title: 'Siemens Healthineers',
+    subtitle: 'Working student, project management',
+    link: 'settings/experience',
+    category: 'work',
+  },
+  {
+    date: '2025-05',
+    end: '2025-11',
+    title: 'HOREICH',
+    subtitle: 'Working student, product management',
+    link: 'settings/experience',
+    category: 'work',
+  },
+
+  // ---- University and courses -------------------------------------
+  {
+    date: '2020-03',
+    end: '2026-06',
+    title: 'B.Sc. Electrical Engineering',
+    subtitle: 'FAU Erlangen-Nürnberg',
     link: 'settings/education',
-    color: 'secondary',
+    category: 'university',
   },
   {
-    date: '2023-11', // [PLACEHOLDER: date]
-    title: 'MARIE health app',
-    subtitle: 'Concept · Figma prototypes',
-    link: 'marie',
-    color: 'tertiary',
+    date: '2023',
+    title: 'FAU Digital Tech Academy',
+    subtitle: 'Fellow + Existency Building Box',
+    link: 'settings/education',
+    category: 'university',
   },
   {
-    date: '2024-04', // [PLACEHOLDER: date]
-    title: 'Gaming robot hackathon',
-    subtitle: 'Hardware + software for elderly care',
-    link: 'gaming-robot',
-    color: 'primary',
+    date: '2026-07',
+    title: 'Summer School, Shanghai',
+    subtitle: 'Social entrepreneurship · 10 days',
+    link: 'settings/education',
+    category: 'university',
   },
   {
-    date: '2024-09', // [PLACEHOLDER: date]
-    end: '2025-02',
-    title: "Bachelor's thesis",
-    subtitle: 'Technical side project',
-    link: 'thesis',
-    color: 'secondary',
+    date: '2026-10',
+    end: 'present',
+    title: 'M.Sc. Industrial Engineering',
+    subtitle: 'FAU · focus on energy technology',
+    link: 'settings/education',
+    category: 'university',
+  },
+
+  // ---- Startups and projects --------------------------------------
+  {
+    date: '2020-02',
+    end: '2023-05',
+    title: 'SportBuddy',
+    subtitle: 'Co-founder & CMO · the roots of Melt',
+    link: 'melt',
+    category: 'project',
   },
   {
-    date: '2025-02', // [PLACEHOLDER: date]
-    end: '2025-06',
-    title: 'Solhof',
-    subtitle: 'Funeral insurance · end-to-end',
-    link: 'solhof',
-    color: 'success',
+    date: '2024-10',
+    end: '2024-12',
+    title: 'Zollhof',
+    subtitle: 'Funeral insurance app · Talent Programme',
+    link: 'zollhof',
+    category: 'project',
   },
   {
-    date: '2025-09', // [PLACEHOLDER: date]
+    date: '2025',
     end: 'present',
     title: 'Melt',
-    subtitle: 'Dating for active people · in progress',
+    subtitle: 'Dating app for active people · in progress',
     link: 'melt',
-    color: 'primary',
+    category: 'project',
+  },
+  {
+    date: '2026-06',
+    title: "Bachelor's thesis",
+    subtitle: 'PowerFactory → RTDS model conversion',
+    link: 'thesis',
+    category: 'project',
+  },
+
+  // ---- Hackathons (from the CV) -----------------------------------
+  {
+    date: '2023',
+    title: 'HackBay 2023',
+    subtitle: 'Finalist',
+    link: 'settings/experience',
+    category: 'hackathon',
+  },
+  {
+    date: '2024',
+    title: 'HackBay 2024',
+    subtitle: 'Hackathon',
+    link: 'settings/experience',
+    category: 'hackathon',
+  },
+  {
+    date: '2024',
+    title: 'Junction Helsinki',
+    subtitle: 'Hackathon',
+    link: 'settings/experience',
+    category: 'hackathon',
+  },
+  {
+    date: '2024',
+    title: 'Healthcare Hackathon Bayern',
+    subtitle: 'MARIE menopause app · Bionorica challenge',
+    link: 'marie',
+    category: 'hackathon',
+  },
+  {
+    date: '2025',
+    title: 'HackBay 2025',
+    subtitle: 'Hackathon',
+    link: 'settings/experience',
+    category: 'hackathon',
+  },
+  {
+    date: '2026-03',
+    title: 'Hack den Mittelstand, Munich',
+    subtitle: 'AI-agent recruiting tool for an Allianz subsidiary',
+    link: 'settings/experience',
+    category: 'hackathon',
+  },
+  {
+    date: '2026-10',
+    title: 'robo.innovate · GARMI',
+    subtitle: 'With TUM Geriatronics · frontend & eye design',
+    link: 'gaming-robot',
+    category: 'hackathon',
   },
 ];

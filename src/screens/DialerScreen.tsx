@@ -13,13 +13,19 @@ const keys: [string, string][] = [
 ];
 
 const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(contact.emailSubject)}`;
+const hasPhone = Boolean(contact.phoneHref);
 
-/** Phone app: her number as the only contact, plus a working dial pad. */
+/**
+ * Phone app with a single contact. If a phone number is set in settings.ts it can be
+ * called directly; otherwise the screen leads with email and LinkedIn.
+ */
 export function DialerScreen() {
   const [typed, setTyped] = useState<string | null>(null);
-  // Until the visitor types, the display shows her number and the call button dials it.
-  const display = typed ?? contact.phoneDisplay;
-  const dialHref = `tel:${typed ? typed.replace(/[^\d+*#]/g, '') : contact.phoneHref}`;
+  // Until the visitor types, the display shows the contact's number (or a prompt) and the
+  // main button calls that number, or opens email when there is no number.
+  const display = typed ?? (hasPhone ? contact.phoneDisplay : 'Email works best');
+  const mainHref = typed ? `tel:${typed.replace(/[^\d+*#]/g, '')}` : hasPhone ? `tel:${contact.phoneHref}` : mailto;
+  const mainIsMail = !typed && !hasPhone;
 
   const press = (k: string) => setTyped((t) => (t ?? '') + k);
   const del = () => setTyped((t) => (t && t.length > 1 ? t.slice(0, -1) : null));
@@ -28,19 +34,21 @@ export function DialerScreen() {
     <AppScreen title="Phone" transition="push">
       <div className="flex min-h-full flex-col px-4 pb-6">
         {/* The only contact */}
-        <section aria-label="Contact" className="flex items-center gap-4 rounded-shape-xl bg-surface-container-low p-4">
+        <section aria-label="Contact" className="flex items-center gap-4 rounded-shape-xl surface-card p-4">
           <img src={profile.photo} alt="" className="h-14 w-14 rounded-full bg-primary-container object-cover" />
           <div className="min-w-0 flex-1">
             <p className="type-title-medium truncate">{profile.name}</p>
-            <p className="type-body-medium truncate text-on-surface-variant">Mobile · {contact.phoneDisplay}</p>
+            <p className="type-body-medium truncate text-on-surface-variant">
+              {hasPhone ? `Mobile · ${contact.phoneDisplay}` : contact.email}
+            </p>
           </div>
-          <IconButton icon={Mail} label={`Email ${profile.firstName}`} href={mailto} variant="tonal" />
-          <IconButton icon={Phone} label={`Call ${profile.firstName}`} href={`tel:${contact.phoneHref}`} variant="filled" />
+          <IconButton icon={Mail} label={`Email ${profile.firstName}`} href={mailto} variant={hasPhone ? 'tonal' : 'filled'} />
+          {hasPhone && <IconButton icon={Phone} label={`Call ${profile.firstName}`} href={`tel:${contact.phoneHref}`} variant="filled" />}
         </section>
 
         <div className="mt-3 flex flex-wrap gap-2">
           <Button variant="tonal" icon={Mail} href={mailto}>
-            {contact.email}
+            Send an email
           </Button>
           {contact.linkedin && (
             <Button variant="outlined" icon={Linkedin} href={contact.linkedin} target="_blank" rel="noopener noreferrer">
@@ -74,11 +82,13 @@ export function DialerScreen() {
 
         <div className="mt-4 flex justify-center">
           <Pressable
-            href={dialHref}
-            aria-label={`Call ${typed ?? profile.name}`}
-            className="flex h-14 w-24 items-center justify-center rounded-full bg-success text-on-success shadow-elev-1"
+            href={mainHref}
+            aria-label={mainIsMail ? `Email ${profile.firstName}` : `Call ${typed ?? profile.name}`}
+            className={`flex h-14 w-24 items-center justify-center rounded-full shadow-elev-1 ${
+              mainIsMail ? 'bg-brand-gradient' : 'bg-success text-on-success'
+            }`}
           >
-            <Phone size={26} aria-hidden />
+            {mainIsMail ? <Mail size={26} aria-hidden /> : <Phone size={26} aria-hidden />}
           </Pressable>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 /**
- * Tiny hash router. "#/solhof" → ["solhof"], "#/settings/cv" → ["settings", "cv"].
+ * Tiny hash router. "#/zollhof" → ["zollhof"], "#/settings/cv" → ["settings", "cv"].
  * No router library needed; the browser back button works through hashchange.
  */
 const parse = (hash: string) =>

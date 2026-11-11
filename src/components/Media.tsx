@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Figma, ImageOff, VideoOff } from 'lucide-react';
+import { ExternalLink, Figma, ImageOff, VideoOff } from 'lucide-react';
 import type { Media } from '../data/types';
 import { isPlaceholder } from '../lib/app-context';
+import { Button } from './Buttons';
 
 function Placeholder({ icon: Icon, title, hint }: { icon: typeof Figma; title: string; hint: string }) {
   return (
@@ -76,6 +77,25 @@ function FigmaEmbed({ embedUrl, title, caption }: { embedUrl: string; title: str
   );
 }
 
+function LinkOut({ href, label, caption }: { href: string; label: string; caption?: string }) {
+  if (isPlaceholder(href) || !href) {
+    return (
+      <figure>
+        <Placeholder icon={ExternalLink} title={`[PLACEHOLDER] ${label}`} hint="Paste the prototype link into src/data/projects.ts" />
+        <Caption text={caption} />
+      </figure>
+    );
+  }
+  return (
+    <figure>
+      <Button variant="filled" icon={ExternalLink} href={href} target="_blank" rel="noopener noreferrer">
+        {label}
+      </Button>
+      <Caption text={caption} />
+    </figure>
+  );
+}
+
 export function MediaItem({ media }: { media: Media }) {
   switch (media.type) {
     case 'video':
@@ -84,5 +104,7 @@ export function MediaItem({ media }: { media: Media }) {
       return <Image {...media} />;
     case 'figma':
       return <FigmaEmbed {...media} />;
+    case 'link':
+      return <LinkOut {...media} />;
   }
 }
