@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import {
   ArrowRight,
   CircleAlert,
+  ExternalLink,
   Layers,
   MessagesSquare,
   Rocket,
@@ -150,12 +151,12 @@ export function ProjectApp({ project }: { project: Project }) {
         <header className="flex flex-col gap-4 pt-2">
           <div className="flex items-center gap-4">
             <span
-              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[20px] shadow-elev-2"
+              className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full shadow-elev-2"
               style={{ background: project.iconColors.bg, color: project.iconColors.fg }}
               aria-hidden
             >
               {project.iconImage ? (
-                <img src={project.iconImage} alt="" className="h-full w-full rounded-[20px] object-cover" />
+                <img src={project.iconImage} alt="" className="h-full w-full object-cover" />
               ) : (
                 <Icon size={32} />
               )}
@@ -187,6 +188,14 @@ export function ProjectApp({ project }: { project: Project }) {
           )}
 
           <p className="type-body-medium text-on-surface-variant">{project.intro}</p>
+
+          {project.cta && (
+            <div>
+              <Button variant="filled" icon={ExternalLink} href={project.cta.href} target="_blank" rel="noopener noreferrer">
+                {project.cta.label}
+              </Button>
+            </div>
+          )}
 
           <ul className="flex flex-wrap gap-2" aria-label="Tags">
             {project.tags.map((t) => (

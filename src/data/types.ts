@@ -59,6 +59,8 @@ export interface Project {
   period: string;
   tags: string[];
   cover?: { src: string; alt: string };
+  /** Optional button under the intro that opens a live link in a new tab, e.g. a prototype */
+  cta?: { label: string; href: string };
   intro: string;
   /** Every project uses the same six cards, in this order. */
   sections: {
@@ -75,16 +77,20 @@ export interface Project {
 export type TimelineCategory = 'hackathon' | 'university' | 'work' | 'project';
 
 export interface TimelineEntry {
+  /** Unique id; the detail view lives at #/calendar/<id> */
+  id: string;
   /** "YYYY", "YYYY-MM" or "YYYY-MM-DD" */
   date: string;
   /** Optional end date, or "present" */
   end?: string;
   title: string;
-  /** Role or short description */
+  /** Role or short description (shown in the list and the detail view) */
   subtitle: string;
-  /** Hash route to open, e.g. "zollhof" or "settings/education" */
-  link: string;
   category: TimelineCategory;
+  /** What was done, shown in the detail view (CV wording) */
+  details: string[];
+  /** Optional project page to link from the detail view, e.g. "zollhof" */
+  project?: string;
 }
 
 export interface ListEntry {

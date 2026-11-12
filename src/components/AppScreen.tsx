@@ -60,7 +60,7 @@ export function AppScreen({ title, children, actions, transition = 'open', colla
       className={`absolute inset-0 z-20 flex flex-col bg-surface text-on-surface ${className}`}
     >
       <header
-        className={`relative z-10 shrink-0 pt-8 transition-colors duration-200 ${
+        className={`relative z-10 shrink-0 pt-[var(--status-inset)] transition-colors duration-200 ${
           scrolled ? 'bg-surface-container' : 'bg-surface'
         }`}
       >

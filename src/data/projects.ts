@@ -1,5 +1,7 @@
-import { Bot, Flame, HeartPulse, Microchip, ShieldCheck } from 'lucide-react';
+import { Bot, HeartPulse, Microchip, ShieldCheck } from 'lucide-react';
+import { MeltIcon } from '../components/icons/MeltIcon';
 import type { Project } from './types';
+import { MELT_URL } from '../config/links';
 
 /* ------------------------------------------------------------------
    Projects. Order here = order of the app icons on the home screen.
@@ -71,7 +73,7 @@ export const projects: Project[] = [
     id: 'melt',
     name: 'Melt',
     iconLabel: 'Melt',
-    icon: Flame,
+    icon: MeltIcon,
     iconColors: { bg: '#ff4d6d', fg: '#ffffff' },
     categories: ['mobile', 'social'],
     tagline: 'A dating app for active people: swipe in the app, then meet offline.',
@@ -80,6 +82,7 @@ export const projects: Project[] = [
     period: '2025 – present',
     tags: ['Dating', 'Sports', 'Lovable', 'In progress'],
     cover: { src: '/images/melt-cover.svg', alt: 'Melt app concept' },
+    cta: { label: 'Open prototype', href: MELT_URL },
     intro:
       'Melt is a dating app for sports enthusiasts and gym-goers: you swipe in the app, then meet offline. I have been working on it on and off since 2025. It grew out of SportBuddy, the sports startup I co-founded and ran marketing for from 2020 to 2023. Melt is early: there is a prototype, but no user research yet, and this page is honest about that.',
     sections: {
@@ -96,7 +99,7 @@ export const projects: Project[] = [
       },
       prototype: {
         body: 'A clickable prototype built in Lovable, covering the core idea: swipe in the app, then meet offline.',
-        media: [{ type: 'link', label: 'Open the Melt prototype', href: '[PLACEHOLDER: Lovable prototype link]' }],
+        media: [{ type: 'link', label: 'Open prototype', href: MELT_URL }],
       },
       results: {
         title: 'Where it stands',

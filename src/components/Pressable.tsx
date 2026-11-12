@@ -58,7 +58,8 @@ export function Pressable({ children, className = '', href, onClick, disabled, t
 
   if (href !== undefined) {
     return (
-      <a href={href} className={cls} onPointerDown={onPointerDown} onClick={onClick} {...rest}>
+      // draggable={false}: a swipe that starts on a link must move the page, not drag the link
+      <a href={href} className={cls} onPointerDown={onPointerDown} onClick={onClick} draggable={false} {...rest}>
         {rippleNodes}
         {children}
       </a>

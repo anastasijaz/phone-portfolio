@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Settings } from 'lucide-react';
 import { getProject } from '../data/projects';
 import { whyTinder } from '../data/whyTinder';
+import { horeich } from '../data/horeich';
 import { Button } from '../components/Buttons';
 import { Pressable } from '../components/Pressable';
 import { routeHref } from '../hooks/useHashRoute';
@@ -11,6 +12,9 @@ const appInfo = (path: string) => {
   const key = path.split('/')[0];
   if (key === 'settings') {
     return { name: 'Settings', subtitle: 'Profile, CV and contact', icon: Settings, colors: { bg: '#6b5a54', fg: '#ffffff' } };
+  }
+  if (key === horeich.id) {
+    return { name: horeich.title, subtitle: horeich.line, icon: horeich.icon, colors: horeich.iconColors };
   }
   if (key === whyTinder.id) {
     return { name: whyTinder.appName, subtitle: whyTinder.subtitle, icon: whyTinder.icon, colors: whyTinder.iconColors };
@@ -32,7 +36,7 @@ export function RecentsScreen() {
       transition={{ duration: 0.2 }}
       role="dialog"
       aria-label="Recent apps"
-      className="absolute inset-0 z-30 flex flex-col bg-surface-container-highest pt-8"
+      className="absolute inset-0 z-30 flex flex-col bg-surface-container-highest pt-[var(--status-inset)]"
     >
       {items.length === 0 ? (
         <div className="flex flex-1 items-center justify-center">
@@ -52,7 +56,7 @@ export function RecentsScreen() {
                   className="flex h-[70%] w-[70%] shrink-0 snap-center flex-col gap-3"
                 >
                   <div className="flex items-center gap-2 px-1">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-[9px]" style={{ background: info!.colors.bg, color: info!.colors.fg }} aria-hidden>
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full" style={{ background: info!.colors.bg, color: info!.colors.fg }} aria-hidden>
                       <Icon size={16} />
                     </span>
                     <span className="type-title-small truncate">{info!.name}</span>

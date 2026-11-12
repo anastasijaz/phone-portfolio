@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 
-/** Current time, refreshed on the minute. */
-export function useClock() {
+/** Current time. Ticks every `intervalMs` (default: every minute), aligned to the boundary. */
+export function useClock(intervalMs = 60_000) {
   const [now, setNow] = useState(() => new Date());
   useEffect(() => {
     let interval: number | undefined;
     const timeout = window.setTimeout(() => {
       setNow(new Date());
-      interval = window.setInterval(() => setNow(new Date()), 60_000);
-    }, 60_000 - (Date.now() % 60_000));
+      interval = window.setInterval(() => setNow(new Date()), intervalMs);
+    }, intervalMs - (Date.now() % intervalMs));
     return () => {
       window.clearTimeout(timeout);
       if (interval) window.clearInterval(interval);
     };
-  }, []);
+  }, [intervalMs]);
   return now;
 }

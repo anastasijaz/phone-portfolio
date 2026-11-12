@@ -1,4 +1,5 @@
-import { Flame, Heart, Lightbulb, MessageCircleHeart, Sparkles, GraduationCap, type LucideIcon } from 'lucide-react';
+import { HeartHandshake, Heart, Lightbulb, MessageCircleHeart, Sparkles, GraduationCap, type LucideIcon } from 'lucide-react';
+import { MeltIcon } from '../components/icons/MeltIcon';
 import type { ProjectCategory } from './types';
 
 /* ------------------------------------------------------------------
@@ -30,7 +31,7 @@ export const whyTinder = {
   /** Name under the home screen icon and in the app bar */
   appName: 'Why Tinder',
   /** Home screen icon: one solid tile color, white glyph */
-  icon: Heart,
+  icon: HeartHandshake,
   iconColors: { bg: '#ff7a59', fg: '#ffffff' },
   /** Filter pills that show this app (it always shows under ALL) */
   categories: ['social'] as ProjectCategory[],
@@ -74,7 +75,7 @@ export const whyTinder = {
       title: "I'm building a dating app",
       body: 'With Melt I am exploring dating for active people: swipe in the app, then meet offline. My next step is talking to 5–10 active people to test the idea before building further.',
       tags: ['Melt', 'Side project'],
-      icon: Flame,
+      icon: MeltIcon,
     },
     {
       id: 'learn',

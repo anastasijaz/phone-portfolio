@@ -45,8 +45,11 @@ export function sortTimeline(entries: TimelineEntry[]) {
   return [...entries].sort((a, b) => sortKey(b).localeCompare(sortKey(a)) || b.date.localeCompare(a.date));
 }
 
-/** Google Calendar-style agenda widget: newest first, grouped by year, color-coded by category. */
-export function TimelineWidget() {
+/**
+ * Google Calendar-style agenda: newest first, grouped by year, color-coded by category.
+ * `fill` makes it take the full height of its parent (used for the Calendar page).
+ */
+export function TimelineWidget({ fill = false }: { fill?: boolean }) {
   const sorted = sortTimeline(timeline);
   const groups: { year: string; entries: TimelineEntry[] }[] = [];
   for (const e of sorted) {
@@ -58,7 +61,10 @@ export function TimelineWidget() {
   }
 
   return (
-    <section aria-label="Career timeline" className="surface-card shrink-0 overflow-hidden rounded-shape-xl shadow-elev-1">
+    <section
+      aria-label="Career timeline"
+      className={`surface-card flex flex-col overflow-hidden rounded-shape-xl shadow-elev-1 ${fill ? 'min-h-0 flex-1' : 'shrink-0'}`}
+    >
       <header className="flex items-center justify-between px-4 pb-1 pt-3">
         <div>
           <p className="type-label-small uppercase tracking-wider text-primary">Career path</p>
@@ -79,7 +85,11 @@ export function TimelineWidget() {
         ))}
       </ul>
 
-      <div className="no-scrollbar max-h-[206px] overflow-y-auto px-3 pb-3 [mask-image:linear-gradient(to_bottom,black_88%,transparent)]">
+      <div
+        className={`no-scrollbar overflow-y-auto overscroll-contain px-3 pb-3 [mask-image:linear-gradient(to_bottom,black_92%,transparent)] ${
+          fill ? 'min-h-0 flex-1' : 'max-h-[206px]'
+        }`}
+      >
         {groups.map(({ year, entries }) => (
           <div key={year} className="flex gap-2 pt-1.5">
             <div className="w-10 shrink-0 pt-1.5 text-center">
@@ -90,9 +100,9 @@ export function TimelineWidget() {
                 const c = categoryMeta[e.category];
                 const range = formatRange(e);
                 return (
-                  <li key={e.title + e.date}>
+                  <li key={e.id}>
                     <Pressable
-                      href={routeHref(e.link)}
+                      href={routeHref(`calendar/${e.id}`)}
                       aria-label={`${e.title}, ${range}, ${c.label}`}
                       className="flex w-full items-stretch gap-2.5 rounded-shape-s py-1.5 pl-1.5 pr-3 text-left text-on-surface"
                     >
