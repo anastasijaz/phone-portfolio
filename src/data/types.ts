@@ -26,19 +26,17 @@ export interface Metric {
 }
 
 export interface ProjectSection {
-  /** Optional override for the card title (defaults are set per section). */
-  title?: string;
-  body: string;
+  title: string;
+  body?: string;
   bullets?: string[];
-  quotes?: Quote[];
-  metrics?: Metric[];
   media?: Media[];
 }
 
-export type ProjectStatusTone = 'complete' | 'progress' | 'hackathon' | 'side' | 'concept';
-
-/** Filter pills on the home screen. A project can be in several. */
-export type ProjectCategory = 'mobile' | 'web' | 'social' | 'health' | 'internal';
+/** A button on a project page. Opens in a new tab. */
+export interface ProjectButton {
+  label: string;
+  href: string;
+}
 
 export interface Project {
   /** Used for the deep link: #/<id> */
@@ -49,28 +47,19 @@ export interface Project {
   icon: LucideIcon;
   /** Optional image icon in /public, overrides `icon` (square, at least 192×192). */
   iconImage?: string;
-  /** Icon tile colors: one solid background, white glyph */
+  /** Icon colors: one solid circle, white glyph */
   iconColors: { bg: string; fg: string };
-  /** Which filter pills show this project */
-  categories: ProjectCategory[];
-  tagline: string;
-  status: { label: string; tone: ProjectStatusTone };
-  role: string;
-  period: string;
-  tags: string[];
-  cover?: { src: string; alt: string };
-  /** Optional button under the intro that opens a live link in a new tab, e.g. a prototype */
-  cta?: { label: string; href: string };
-  intro: string;
-  /** Every project uses the same six cards, in this order. */
-  sections: {
-    problem: ProjectSection;
-    research: ProjectSection;
-    interviews: ProjectSection;
-    prototype: ProjectSection;
-    results: ProjectSection;
-    next: ProjectSection;
-  };
+  /** false = no icon on the Projects page (the page still opens at #/<id>) */
+  onHomeScreen?: boolean;
+  /** Status line, e.g. "On hold" */
+  status: string;
+  /** One-line summary under the title */
+  summary: string;
+  sections: ProjectSection[];
+  /** Media shown after the sections (videos, screenshots) */
+  media?: Media[];
+  /** Buttons at the bottom (and the first one also in the header) */
+  buttons?: ProjectButton[];
 }
 
 /** Timeline color groups; colors live in src/index.css (--cat-*) */

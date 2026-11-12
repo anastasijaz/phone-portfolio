@@ -1,258 +1,317 @@
 import { Bot, HeartPulse, Microchip, ShieldCheck } from 'lucide-react';
 import { MeltIcon } from '../components/icons/MeltIcon';
+import { HMonogramIcon } from '../components/icons/HMonogramIcon';
 import type { Project } from './types';
-import { MELT_URL } from '../config/links';
+import {
+  HOREICH_FIGMA_URL,
+  HOREICH_SOFTWARE_URL,
+  HOREICH_URL,
+  MARIE_FIGMA_URL,
+  MELT_URL,
+  ZOLLHOF_FIGMA_URL,
+} from '../config/links';
 
 /* ------------------------------------------------------------------
-   Projects. Order here = order of the app icons on the home screen.
-   Every project has the same six cards: problem, research, interviews,
-   prototype, results, next. To add a project, copy one object below,
-   give it a new unique `id`, and you're done (see README).
-   Anything marked [PLACEHOLDER] still needs your real content.
+   All project pages. Order here = order of the icons on the Projects
+   page (home screen page 3). Each page shows: title, status line,
+   one-line summary, the sections in order, media, then the buttons.
+   Anything marked [PLACEHOLDER] still needs your content.
    ------------------------------------------------------------------ */
 
+/** [PLACEHOLDER] ZOLLHOF client. Replace with the company name if you may name it. */
+export const CLIENT_NAME = 'a German funeral insurance company';
+
 export const projects: Project[] = [
-  {
-    id: 'zollhof',
-    name: 'Zollhof',
-    iconLabel: 'Zollhof',
-    icon: ShieldCheck,
-    iconColors: { bg: '#2e8b6e', fg: '#ffffff' },
-    categories: ['mobile'],
-    tagline: 'Funeral insurance built around what people actually want: not to burden their families.',
-    status: { label: 'Complete · end-to-end, app not built', tone: 'complete' },
-    role: 'Zollhof Talent Programme · research, prototype, business plan',
-    period: 'Oct – Dec 2024',
-    tags: ['Insurtech', '30 interviews', 'Business plan', 'End-to-end'],
-    cover: { src: '/images/zollhof-cover.svg', alt: 'Funeral insurance app screens' },
-    intro:
-      'A funeral insurance app I developed in the Talent Programme of Zollhof, a tech incubator that pairs participants with real-world challenges from corporate partners. I took it end to end: 24 interviews to understand the problem, 6 more to validate the solution, then a prototype and a business plan. The app itself was not built during the programme; the concept is now being implemented with the partner.',
-    sections: {
-      problem: {
-        body: 'The client brief: grow funeral insurance sales by adding a new feature, delivered digitally as an app. Behind the sales goal sits a topic most people avoid: their own death and what should happen afterwards.',
-      },
-      research: {
-        body: 'Before designing anything, I used the first interview round to explore how people feel about death: their fears, and their wishes for their own funeral.',
-        bullets: ['Fear of death', 'Wishes for their own funeral'],
-      },
-      interviews: {
-        title: 'Customer & user interviews',
-        body: '24 interviews to understand the problem, then 6 validation interviews to test the solution. Both rounds pointed to the same finding. [PLACEHOLDER: who you interviewed, e.g. age range and situation]',
-        metrics: [
-          { value: '24', label: 'interviews to understand the problem' },
-          { value: '6', label: 'interviews to validate the solution' },
-        ],
-        quotes: [
-          { text: '[PLACEHOLDER: A verbatim quote from an interview]', who: '[PLACEHOLDER: interviewee, e.g. age]' },
-          { text: '[PLACEHOLDER: A second quote]', who: '[PLACEHOLDER: interviewee]' },
-        ],
-      },
-      prototype: {
-        body: 'An app prototype built around the main finding, with a business plan behind it. The two demo videos walk through it.',
-        media: [
-          { type: 'video', src: '/videos/zollhof-demo-1.mp4', poster: '/images/zollhof-cover.svg', caption: 'Demo 1: [PLACEHOLDER: what it shows]' },
-          { type: 'video', src: '/videos/zollhof-demo-2.mp4', poster: '/images/zollhof-cover.svg', caption: 'Demo 2: [PLACEHOLDER: what it shows]' },
-          {
-            type: 'figma',
-            title: 'Funeral insurance prototype',
-            // [PLACEHOLDER] Paste your Figma embed link here, or delete this block
-            embedUrl: '[PLACEHOLDER: Figma embed URL]',
-          },
-        ],
-      },
-      results: {
-        body: 'The finding held up in both interview rounds: people do not want to burden their families. They want a small, cheap, simple funeral. The prototype and business plan are now being implemented with the partner.',
-        bullets: ["Don't burden the family", 'Keep it small, cheap and simple'],
-      },
-      next: {
-        body: 'My next idea: a voice AI agent that people simply talk to about their wishes, instead of clicking through an app. The open question I would test first: could the conversation replace the app altogether?',
-      },
-    },
-  },
   {
     id: 'melt',
     name: 'Melt',
     iconLabel: 'Melt',
     icon: MeltIcon,
     iconColors: { bg: '#ff4d6d', fg: '#ffffff' },
-    categories: ['mobile', 'social'],
-    tagline: 'A dating app for active people: swipe in the app, then meet offline.',
-    status: { label: 'In progress · early stage', tone: 'progress' },
-    role: 'My own project · concept and prototype',
-    period: '2025 – present',
-    tags: ['Dating', 'Sports', 'Lovable', 'In progress'],
-    cover: { src: '/images/melt-cover.svg', alt: 'Melt app concept' },
-    cta: { label: 'Open prototype', href: MELT_URL },
-    intro:
-      'Melt is a dating app for sports enthusiasts and gym-goers: you swipe in the app, then meet offline. I have been working on it on and off since 2025. It grew out of SportBuddy, the sports startup I co-founded and ran marketing for from 2020 to 2023. Melt is early: there is a prototype, but no user research yet, and this page is honest about that.',
-    sections: {
-      problem: {
-        body: 'Dating apps don\'t work well for active people. My belief: active people want to date other active people, and today\'s apps give them no good way to find each other.',
-      },
-      research: {
-        title: 'What SportBuddy taught me',
-        body: 'SportBuddy wasn\'t niche enough. Melt narrows the focus to one clear use case: dating for people with an active lifestyle.',
-      },
-      interviews: {
-        title: 'User interviews',
-        body: 'Not yet, and that is the next step. So far Melt rests on my own belief, not on evidence. Before building further, I want to talk to 5–10 active people to test whether they actually want to date other active people.',
-      },
-      prototype: {
-        body: 'A clickable prototype built in Lovable, covering the core idea: swipe in the app, then meet offline.',
-        media: [{ type: 'link', label: 'Open prototype', href: MELT_URL }],
-      },
-      results: {
-        title: 'Where it stands',
-        body: 'A working prototype. No users, waitlist or feedback yet, so no results to show.',
-      },
-      next: {
-        body: 'Talk to 5–10 active people first, then rework the parts of the prototype the interviews call into question. [PLACEHOLDER: next milestone after that]',
-      },
-    },
-  },
-  {
-    id: 'gaming-robot',
-    name: 'GARMI: robot for elderly care',
-    iconLabel: 'GARMI',
-    icon: Bot,
-    iconColors: { bg: '#4a72c9', fg: '#ffffff' },
-    categories: ['health'],
-    tagline: 'Helping an elderly-care robot communicate with people who can\'t see or hear well.',
-    status: { label: 'Hackathon project', tone: 'hackathon' },
-    role: 'robo.innovate hackathon · frontend & eye design',
-    period: 'Oct 2026 · Garmisch-Partenkirchen / Munich',
-    tags: ['Hackathon', 'Robotics', 'Voice AI', 'Elderly care'],
-    cover: { src: '/images/gaming-robot-cover.svg', alt: 'GARMI robot' },
-    intro:
-      'At robo.innovate, run with TUM Geriatronics, our team programmed GARMI, a robot that assists in elderly care, to communicate better. We gave it facial expressions and more emotional speech by integrating a LiveKit voice AI assistant, combining the robot hardware with new software. I built the frontend and designed GARMI\'s eyes.',
-    sections: {
-      problem: {
-        body: 'GARMI needed to communicate better with elderly people, many of whom can\'t see or hear well.',
-      },
-      research: {
-        body: 'We started with a crash course on elderly care from Caritas, the German Catholic social welfare organisation, to understand the people GARMI is meant to help.',
-      },
-      interviews: {
-        title: 'What we observed',
-        body: 'In the demo we saw where GARMI\'s conversations broke down:',
-        bullets: [
-          'Interrupting and talking over people',
-          'No emotion in its voice or face',
-          'Not noticing when several people speak',
-          'Not understanding dialects',
-          'Not handling long pauses: it should wait, not jump in',
-        ],
-      },
-      prototype: {
-        title: 'What we built',
-        body: 'We programmed facial expressions for GARMI and integrated a LiveKit voice AI assistant, so the robot speaks with more emotion. My part was the frontend and the design of GARMI\'s eyes.',
-        bullets: [
-          'Frontend and eye design (my part)',
-          'Facial expressions for the robot',
-          'More emotional speech via a LiveKit voice AI assistant',
-        ],
-        media: [
-          { type: 'video', src: '/videos/garmi-demo.mp4', caption: 'GARMI demo' },
-          { type: 'image', src: '/images/gaming-robot-cover.svg', alt: 'GARMI robot', caption: '[PLACEHOLDER: photo of GARMI or your eye designs]' },
-        ],
-      },
-      results: {
-        body: 'We demoed the new GARMI at the end of the hackathon. [PLACEHOLDER: jury feedback]',
-      },
-      next: {
-        body: '[PLACEHOLDER: Which of the observed problems are still open, e.g. dialects, several speakers, long pauses, and how you would tackle them.]',
-      },
-    },
-  },
-  {
-    id: 'thesis',
-    name: "Bachelor's thesis",
-    iconLabel: 'Thesis',
-    icon: Microchip,
-    iconColors: { bg: '#7058b8', fg: '#ffffff' },
-    categories: ['internal'],
-    tagline: 'When does automatic conversion of power-grid models from RMS to EMT simulation work, and when does it fail?',
-    status: { label: 'Technical side project', tone: 'side' },
-    role: 'B.Sc. Electrical Engineering · FAU Erlangen-Nürnberg',
-    period: '2026',
-    tags: ['Power systems', 'Simulation', 'PowerFactory', 'RTDS'],
-    intro:
-      'My bachelor\'s thesis, “Analysis and Implementation of the PowerFactory Import Function into the RTDS Real-Time Simulator”, presented here as a technical side project. I evaluated a DGS-based conversion tool that moves power system models from DIgSILENT PowerFactory (RMS simulation) into RSCAD/RTDS (real-time EMT simulation), and tested where it works and where it breaks on the IEEE 9-bus and 39-bus benchmark systems.',
-    sections: {
-      problem: {
+    status: 'On hold',
+    summary: 'A dating app that uses shared physical activities as the way from the app to real life.',
+    sections: [
+      {
         title: 'Problem',
-        body: 'Converting power-grid models by hand from one simulation world to the other is slow and error-prone, and the result is hard to reproduce or verify. An automatic converter promises to fix that, but only if you know when you can trust it.',
+        body: 'Dating apps stopped working for many people. Younger users who grew up on them, and came out of COVID, never fully learned to date offline. Melt uses the app for the first contact, then gives an easy way to meet in person through activities such as run clubs.',
       },
-      research: {
-        title: 'Background: RMS vs EMT',
-        body: 'RMS simulation works with fundamental-frequency averaged quantities: it is fast and suited to large systems. EMT simulation resolves the instantaneous waveforms and fast transients, which takes much more computation.',
+      {
+        title: 'Origin',
+        body: 'A personal project I have worked on, on and off, since 2025. It was inspired by SportBuddy, which wasn’t niche enough, and by informal conversations with friends. Melt is an early concept based on those informal conversations, not on formal user research.',
       },
-      interviews: {
-        title: 'Evaluation setup',
-        body: 'I ran the converted models on two IEEE benchmark systems and compared them with the originals on four quantities:',
-        bullets: ['Bus voltages', 'Generator active power', 'Generator reactive power', 'Rotor speed'],
-        metrics: [
-          { value: '9-bus', label: 'IEEE benchmark' },
-          { value: '39-bus', label: 'IEEE benchmark' },
+      {
+        title: 'What I built',
+        body: 'A Lovable prototype with profile pages and swiping.',
+        bullets: [
+          'Profiles use sport-specific prompts, for example “how to approach me at the gym” or “my latest PR”.',
+          'An activities feature matches people with a shared interest and lets them organise a session in chat.',
         ],
       },
-      prototype: {
-        title: 'What I did',
-        body: 'Rather than building a new tool, I tested the existing conversion tool systematically: in which cases the converted models work, and in which they fail.',
+      {
+        title: 'Business idea',
+        body: 'Sports venues and clubs pay to be listed as date options, and can host singles events.',
       },
-      results: {
-        body: '[PLACEHOLDER: How closely the results matched for the 9-bus and the 39-bus system, and at what system size the conversion starts to fail.]',
+      {
+        title: 'Users',
+        body: 'None formally tested yet.',
       },
-      next: { body: '[PLACEHOLDER: What would make the conversion trustworthy for larger grids, or what you would test next.]' },
-    },
+      {
+        title: 'Next',
+        body: 'Move off Lovable into a proper build and plan the marketing. Melt is on hold for now.',
+      },
+    ],
+    buttons: [{ label: 'Open prototype', href: MELT_URL }],
+  },
+  {
+    id: 'zollhof',
+    name: 'ZOLLHOF',
+    iconLabel: 'ZOLLHOF',
+    icon: ShieldCheck,
+    iconColors: { bg: '#2e8b6e', fg: '#ffffff' },
+    status: 'Ended. The insurer is building the product in-house.',
+    summary: 'A digital checklist and secure vault for funeral wishes, developed as a challenge for a funeral insurance company.',
+    sections: [
+      {
+        title: 'Client',
+        body: `${CLIENT_NAME.charAt(0).toUpperCase()}${CLIENT_NAME.slice(1)}, through the ZOLLHOF tech incubator.`,
+      },
+      {
+        title: 'Brief',
+        body: 'The insurer sold funeral insurance and wanted to add a digital product feature to attract younger buyers. They asked the team to find out why people don’t buy funeral insurance and what would change that.',
+      },
+      {
+        title: 'My role',
+        body: 'I was team lead of a two-person team. I helped design the interview questions, split the interviews roughly 50/50 with my teammate, and built the first Figma mock-up.',
+      },
+      {
+        title: 'Research',
+        body: 'About 20 interviews with people aged roughly 20 to 60, recruited through friends and family. The insurer did not help recruit. Then 6 validation interviews testing the prototype.',
+      },
+      {
+        title: 'Key findings',
+        bullets: [
+          'People don’t want to be a burden on their families.',
+          'They want a simple, minimalist and low-cost funeral.',
+          'Some choose cremation for cost reasons.',
+          'Most people have assets, such as stocks, bonds or real estate, that would cover funeral costs.',
+        ],
+      },
+      {
+        title: 'Prototype',
+        body: 'A digital checklist with questions on burial or cremation, casket, music, clothing, and where documents and passwords are kept. The vault stores these wishes.',
+      },
+      {
+        title: 'Testing feedback',
+        body: 'The 6 testers liked the clean, neutral, non-gamified design, because the topic is sensitive. The corporate partner loved the final presentation.',
+      },
+      {
+        title: 'Reflection',
+        body: 'If I did it again, I’d build a voice AI conversation as the vault, instead of a clickable checklist.',
+      },
+      {
+        title: 'What I learned',
+        body: 'My first project as team lead. I learned to mentor rather than direct, to ask questions that get a team aligned, and to stay committed to users on a topic I wasn’t passionate about.',
+      },
+    ],
+    media: [
+      { type: 'video', src: '/assets/zollhof/checklist.mp4', caption: 'Checklist [PLACEHOLDER: confirm caption]' },
+      { type: 'video', src: '/assets/zollhof/file-upload.mp4', caption: 'File upload [PLACEHOLDER: confirm caption]' },
+      { type: 'video', src: '/assets/zollhof/digital-estate.mp4', caption: 'Digital estate [PLACEHOLDER: confirm caption]' },
+      { type: 'video', src: '/assets/zollhof/shared-with.mp4', caption: 'Shared with [PLACEHOLDER: confirm caption]' },
+    ],
+    buttons: [{ label: 'Figma', href: ZOLLHOF_FIGMA_URL }],
   },
   {
     id: 'marie',
     name: 'MARIE',
     iconLabel: 'MARIE',
     icon: HeartPulse,
-    iconColors: { bg: '#e8835a', fg: '#ffffff' },
-    categories: ['mobile', 'health'],
-    tagline: 'A health app for women in menopause who don\'t feel listened to.',
-    status: { label: 'Concept · continued after the hackathon', tone: 'concept' },
-    role: 'Healthcare Hackathon Bayern · Bionorica challenge',
-    period: '2024 – 2025',
-    tags: ['Health', 'Menopause', 'User interviews', 'Figma', 'Pitch'],
-    cover: { src: '/images/marie-cover.svg', alt: 'MARIE prototype screens' },
-    intro:
-      'MARIE is a menopause app for women aged 35 to 50 in perimenopause, menopause or postmenopause. It started at the Healthcare Hackathon Bayern as an answer to Bionorica\'s challenge. I ran user interviews and a needs analysis, derived the key features from those conversations, and designed the UI/UX in Figma. We named it MARIE because it should sound like a friend, not a medical product.',
-    sections: {
-      problem: {
-        body: 'Women going through menopause often feel left alone with it.',
+    iconColors: { bg: '#8e5bb5', fg: '#ffffff' },
+    status: 'On hold',
+    summary: 'A voice AI companion for women in menopause that tracks symptoms through conversation, without manual logging.',
+    sections: [
+      {
+        title: 'Origin',
+        body: 'A hackathon challenge from a pharma company selling a homeopathic menopause medication. Women had to take it daily for 2–3 months before seeing benefits, so many stopped. The team built a voice AI that tracks symptoms through conversation and shows daily progress reports. After the hackathon, the team continued with features such as a fitness plan against osteoporosis, and held talks with the Bavarian Ministry of Health.',
+      },
+      {
+        title: 'My role',
+        body: 'I designed the UI/UX and the Figma prototype, and ran the interviews with women, as the team was mostly men.',
+      },
+      {
+        title: 'Research',
+        body: 'About 15 women aged 35–50, across perimenopause, menopause and postmenopause.',
+      },
+      {
+        title: 'Findings',
         bullets: [
-          'Insufficient support from their doctors',
-          'Not feeling listened to',
-          'Often not even knowing they have entered menopause',
+          'Many women don’t know they’re entering menopause, and there’s little awareness.',
+          'Many felt their symptoms weren’t taken seriously by gynaecologists, and were pushed towards aggressive hormone treatment they didn’t want.',
+          'There’s a lack of emotional support.',
+          'Hot flashes disrupt work.',
+          'Some women were pushed into early menopause by breast cancer treatment.',
+          'Women want tracking that happens passively, not manual logging.',
         ],
       },
-      research: {
-        title: 'Needs analysis',
-        body: '[PLACEHOLDER: confirm what women said about tracking their symptoms. Your notes conflict: one says they want to track symptoms, an earlier one says they don\'t.]',
+      {
+        title: 'Ministry of Health',
+        body: 'The Ministry liked the idea, but its budget for that year went to other health topics, so the project had no funding.',
       },
-      interviews: {
-        body: 'We ran around 15 user interviews, and every key feature came directly out of those conversations. [PLACEHOLDER: who you spoke to]',
-        metrics: [{ value: '~15', label: 'user interviews' }],
-        quotes: [{ text: '[PLACEHOLDER: A quote from an interview]', who: '[PLACEHOLDER: e.g. woman, 48]' }],
+      {
+        title: 'Status',
+        body: 'On hold, for two reasons: no funding, and the team wasn’t well placed to market a women’s health product.',
       },
-      prototype: {
-        title: 'Prototypes',
-        body: 'I designed the UI/UX for the app in Figma. [PLACEHOLDER: which screens and flows the prototypes show]',
-        media: [
-          { type: 'figma', title: 'MARIE prototype 1', embedUrl: '[PLACEHOLDER: Figma embed URL]' },
-          { type: 'figma', title: 'MARIE prototype 2', embedUrl: '[PLACEHOLDER: Figma embed URL]' },
+      {
+        title: 'Next steps',
+        body: 'Add emotional voice features with LiveKit, and possibly approach German startups working on this topic.',
+      },
+      {
+        title: 'What I learned',
+        body: 'Interviewing people about difficult subjects. The more emotional the topic, the more human the product has to feel.',
+      },
+    ],
+    buttons: [{ label: 'Figma', href: MARIE_FIGMA_URL }],
+  },
+  {
+    id: 'garmi',
+    name: 'GARMI',
+    iconLabel: 'GARMI',
+    icon: Bot,
+    iconColors: { bg: '#4a72c9', fg: '#ffffff' },
+    status: 'Hackathon project · robo.innovate 2026',
+    summary: 'A companion robot for elderly care, developed with TUM’s Department of Geriatronics. I built the robot’s face and eyes.',
+    sections: [
+      {
+        title: 'Problem',
+        body: 'GARMI needed to communicate better with elderly people who have hearing or vision loss. Issues we saw:',
+        bullets: [
+          'Interrupting or talking over people',
+          'Showing no emotion',
+          'Not noticing when several people speak',
+          'Not understanding dialects',
+          'Not handling long pauses',
         ],
       },
-      results: {
-        body: 'We pitched MARIE at the hackathon and kept developing it afterwards, up to a follow-up conversation with the Bavarian Ministry of Health. The Ministry liked the idea and sees menopause as an important topic, but has no budget to fund it.',
+      {
+        title: 'Caritas course',
+        body: 'A crash course on elderly care, including a suit that simulates limited mobility and senses. Takeaways:',
+        bullets: [
+          'Speak slowly',
+          'Keep the mouth visible for lip reading',
+          'Use facial expressions',
+          'Avoid a monotone voice',
+          'Give social cues through the screens',
+        ],
       },
-      next: { body: '[PLACEHOLDER: Next steps, e.g. other funding routes, a partner, or a first pilot.]' },
-    },
+      {
+        title: 'My role',
+        body: 'Front-end. I designed the eyes and face expressions, and mapped them to the emotions the LiveKit voice agent detects. I added a listening state (the eyes turn to the side, with an attentive tilt) and a thinking state (the eyes look to the upper left), so people can tell what GARMI is doing when it’s quiet.',
+      },
+      {
+        title: 'Not built',
+        body: 'The chest-screen aura.',
+      },
+      {
+        title: 'Results',
+        body: 'A demo video of about 2 minutes. No jury feedback and no placement.',
+      },
+      {
+        title: 'What I learned',
+        body: 'How important human-centred design is for emotional topics and for users who aren’t used to technology.',
+      },
+    ],
+    media: [{ type: 'video', src: '/assets/garmi/demo.mp4', caption: 'GARMI demo' }],
+  },
+  {
+    id: 'horeich',
+    name: 'Horeich.de (redesign)',
+    iconLabel: 'Horeich.de',
+    icon: HMonogramIcon,
+    iconColors: { bg: '#ffae94', fg: '#5c4a44' },
+    status: 'Live · HOREICH GmbH, working student',
+    summary: 'Redesigned the website of HOREICH GmbH, an Erlangen company that makes sensors for infrastructure and environment monitoring.',
+    sections: [
+      {
+        title: 'My role',
+        body: 'Product management working student. My first task was the website redesign. I also worked on the go-to-market strategy for the company’s radon sensor.',
+      },
+      {
+        title: 'Users',
+        body: 'Customers who find the products through Google search, and engineers who implement the sensors. The site had to be a company landing page and also a data-sheet hub.',
+      },
+      {
+        title: 'The old site',
+        body: 'Built quickly by the two founders. Cluttered and unstructured, with key information missing and filler content that added nothing. A dark grey, matte design. No before screenshots are available.',
+      },
+      {
+        title: 'New structure',
+        bullets: [
+          'A landing page',
+          'Separate sections for environmental and infrastructure sensors',
+          'A software page with demo videos',
+          'A template for each sensor: features at the top, technical data (size, connection, how data is sent), a price list and contact',
+        ],
+      },
+      {
+        title: 'Constraints',
+        body: 'Built in WordPress, so the theme limited the layout. The founders didn’t want custom hard-coding, so some formatting drifts from the design. The live site has been rearranged since handover and isn’t as clean as my version.',
+      },
+      {
+        title: 'Results',
+        body: 'No measured metrics. The founders report positive feedback from customers and engineers.',
+      },
+      {
+        title: 'Proudest part',
+        body: 'The software page with short demo videos.',
+      },
+    ],
+    media: [
+      {
+        type: 'image',
+        src: '/assets/horeich/after.png',
+        alt: 'horeich.de after the redesign',
+        caption: 'After the redesign. [PLACEHOLDER: Anastasija will upload the screenshots.]',
+      },
+    ],
+    buttons: [
+      { label: 'Live site', href: HOREICH_URL },
+      { label: 'Software page', href: HOREICH_SOFTWARE_URL },
+      { label: 'Concept Figma', href: HOREICH_FIGMA_URL },
+    ],
+  },
+  {
+    // Not on the Projects page; still opens at #/thesis
+    id: 'thesis',
+    name: "Bachelor's thesis",
+    iconLabel: 'Thesis',
+    icon: Microchip,
+    iconColors: { bg: '#7058b8', fg: '#ffffff' },
+    onHomeScreen: false,
+    status: 'B.Sc. Electrical Engineering · FAU Erlangen-Nürnberg · 2026',
+    summary: 'When does automatic conversion of power-grid models from RMS to EMT simulation work, and when does it fail?',
+    sections: [
+      {
+        title: 'Thesis',
+        body: '“Analysis and Implementation of the PowerFactory Import Function into the RTDS Real-Time Simulator”. I evaluated a DGS-based conversion tool that moves power system models from DIgSILENT PowerFactory (RMS simulation) into RSCAD/RTDS (real-time EMT simulation).',
+      },
+      {
+        title: 'Problem',
+        body: 'Converting power-grid models by hand from one simulation world to the other is slow and error-prone, and the result is hard to reproduce or verify. An automatic converter promises to fix that, but only if you know when you can trust it.',
+      },
+      {
+        title: 'Evaluation setup',
+        body: 'I ran the converted models on the IEEE 9-bus and 39-bus benchmark systems and compared them with the originals on four quantities:',
+        bullets: ['Bus voltages', 'Generator active power', 'Generator reactive power', 'Rotor speed'],
+      },
+      {
+        title: 'Results',
+        body: '[PLACEHOLDER: How closely the results matched for the 9-bus and the 39-bus system, and at what system size the conversion starts to fail.]',
+      },
+    ],
   },
 ];
 
 export const getProject = (id: string) => projects.find((p) => p.id === id);
+
+/** Projects with an icon on the Projects page, in order */
+export const homeScreenProjects = projects.filter((p) => p.onHomeScreen !== false);

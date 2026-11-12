@@ -34,6 +34,7 @@ export const formatRange = (e: TimelineEntry) => {
   if (e.end === 'present') return `${single(e.date)} – Now`;
   const a = parse(e.date);
   const b = parse(e.end);
+  if (a.y === b.y && a.m && a.m === b.m && a.day && b.day) return `${a.day}–${b.day} ${monthName(a.m)} ${a.y}`;
   if (a.y === b.y && a.m && b.m && !a.day && !b.day) return `${monthName(a.m)} – ${monthName(b.m)} ${a.y}`;
   return `${single(e.date)} – ${single(e.end)}`;
 };

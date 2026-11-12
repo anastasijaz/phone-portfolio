@@ -105,7 +105,7 @@ export const timeline: TimelineEntry[] = [
     id: 'zollhof',
     date: '2024-10',
     end: '2024-12',
-    title: 'Zollhof Talent Programme',
+    title: 'ZOLLHOF Talent Programme',
     subtitle: 'Funeral insurance app',
     category: 'project',
     details: [
@@ -188,8 +188,8 @@ export const timeline: TimelineEntry[] = [
   {
     id: 'hack-den-mittelstand',
     date: '2026-03',
-    title: 'Hack den Mittelstand',
-    subtitle: 'Munich',
+    title: 'Hack the Mittelstand, Munich',
+    subtitle: 'Applied',
     category: 'hackathon',
     details: [
       'Built an AI-agent recruiting tool for an Allianz subsidiary that screens CVs for fit and generates tailored interview questions; now being developed further in-house',
@@ -197,14 +197,15 @@ export const timeline: TimelineEntry[] = [
   },
   {
     id: 'robo-innovate-2026',
-    date: '2026-10',
-    title: 'robo.innovate',
-    subtitle: 'Garmisch-Partenkirchen / Munich · In cooperation with TUM Geriatronics',
+    date: '2026-10-23',
+    end: '2026-10-28',
+    title: 'robo.innovate Hackathon 2026',
+    subtitle: 'TUM Geriatronics · GARMI challenge',
     category: 'hackathon',
     details: [
       'Programmed GARMI, a robot assisting in elderly care, to communicate better: added facial expressions and more emotional speech by integrating a LiveKit voice AI assistant',
     ],
-    project: 'gaming-robot',
+    project: 'garmi',
   },
 ];
 

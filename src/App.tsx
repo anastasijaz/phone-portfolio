@@ -12,9 +12,7 @@ import { ProjectApp } from './screens/ProjectApp';
 import { SettingsApp } from './screens/SettingsApp';
 import { RecentsScreen } from './screens/RecentsScreen';
 import { WhyTinderApp } from './screens/WhyTinderApp';
-import { HoreichApp } from './screens/HoreichApp';
 import { whyTinder } from './data/whyTinder';
-import { horeich } from './data/horeich';
 import { BEZEL, DEVICE_H, DEVICE_W, SCREEN_H, SCREEN_W, useFrameScale } from './hooks/useFrameScale';
 
 const SETTINGS_SUBS = ['experience', 'education', 'skills', 'about', 'contact', 'cv'];
@@ -28,6 +26,8 @@ const STATUS_ROW = 36;
 const STATUS_GAP_FRAMED = 30;
 /** On a real phone the browser already sits below the system status bar */
 const STATUS_GAP_PHONE = 4;
+/** Space below the 3-button nav inside the device frame (nav glyphs sit ~30px above the bezel) */
+const NAV_GAP_FRAMED = 8;
 
 /**
  * Where "back" goes when there is no earlier screen in this visit (someone opened a deep link).
@@ -57,27 +57,27 @@ export default function App() {
   const settingsSub = isSettings && SETTINGS_SUBS.includes(segments[1] ?? '') ? segments[1] : undefined;
   const isRecents = top === 'recents';
   const isWhyTinder = top === whyTinder.id;
-  const isHoreich = top === horeich.id;
-  const appKey = project ? project.id : isSettings ? 'settings' : isWhyTinder ? whyTinder.id : isHoreich ? horeich.id : null;
+  const appKey = project ? project.id : isSettings ? 'settings' : isWhyTinder ? whyTinder.id : null;
   const homePageIndex = HOME_PAGE_ROUTES.indexOf(top as (typeof HOME_PAGE_ROUTES)[number]);
   const isHome = homePageIndex !== -1;
   const calendarEntryId = top === 'calendar' ? segments[1] : undefined;
 
   // Unknown routes fall back to the nearest valid screen (replacing, so back isn't polluted)
   useEffect(() => {
-    if (!isHome && !appKey && !isRecents) navigate('', { replace: true });
+    if (top === 'gaming-robot') navigate('garmi', { replace: true }); // old GARMI link
+    else if (!isHome && !appKey && !isRecents) navigate('', { replace: true });
     else if (isSettings && segments[1] && !settingsSub) navigate('settings', { replace: true });
     else if (calendarEntryId && !getTimelineEntry(calendarEntryId)) navigate('calendar', { replace: true });
-  }, [isHome, appKey, isRecents, isSettings, segments, settingsSub, calendarEntryId, navigate]);
+  }, [top, isHome, appKey, isRecents, isSettings, segments, settingsSub, calendarEntryId, navigate]);
 
   // Track recents + page title
   useEffect(() => {
     if (appKey) setRecents((rs) => [path, ...rs.filter((r) => r.split('/')[0] !== appKey)].slice(0, 8));
     const name =
       project?.name ??
-      (isSettings ? 'Settings' : isWhyTinder ? whyTinder.appName : isHoreich ? horeich.title : top === 'calendar' ? 'Calendar' : top === 'projects' ? 'Projects' : null);
+      (isSettings ? 'Settings' : isWhyTinder ? whyTinder.appName : top === 'calendar' ? 'Calendar' : top === 'projects' ? 'Projects' : null);
     document.title = name ? `${name} · ${profile.name}` : `${profile.name} · Product Portfolio`;
-  }, [path, appKey, isSettings, isWhyTinder, isHoreich, project, top]);
+  }, [path, appKey, isSettings, isWhyTinder, project, top]);
 
   /** Android back: one step back in what the visitor actually did. */
   const back = useCallback(() => {
@@ -103,7 +103,8 @@ export default function App() {
   );
 
   const goHome = useCallback(() => navigate(''), [navigate]);
-  const goRecents = useCallback(() => (isRecents ? back() : navigate('recents')), [isRecents, back, navigate]);
+  // Recents is a no-op, as requested (the #/recents overview still opens from a direct link)
+  const goRecents = useCallback(() => {}, []);
   // Swiping between home pages replaces the entry, so it doesn't fill the back history
   const setHomePage = useCallback((page: number) => navigate(HOME_PAGE_ROUTES[page] ?? '', { replace: true }), [navigate]);
 
@@ -171,17 +172,17 @@ export default function App() {
         ...(framed ? { width: SCREEN_W, height: SCREEN_H } : {}),
         ['--status-gap' as string]: `${statusGap}px`,
         ['--status-inset' as string]: `${statusGap + STATUS_ROW}px`,
+        ['--nav-gap' as string]: `${framed ? NAV_GAP_FRAMED : 0}px`,
       }}
       className={`relative overflow-hidden ${darkChrome ? 'wallpaper-dark' : 'wallpaper'} ${framed ? 'rounded-[44px]' : 'h-[100dvh] w-screen'}`}
     >
       <StatusBar punchHole={framed} dark={darkChrome} />
-      <main ref={mainRef} onPointerDownCapture={recordTap} className="absolute inset-x-0 bottom-12 top-0 overflow-hidden">
+      <main ref={mainRef} onPointerDownCapture={recordTap} className="absolute inset-x-0 bottom-[calc(48px+var(--nav-gap))] top-0 overflow-hidden">
         <HomeScreen hidden={!isHome} />
         <AnimatePresence>
           {project && <ProjectApp key={project.id} project={project} />}
           {isSettings && <SettingsApp key="settings" sub={settingsSub} />}
           {isWhyTinder && <WhyTinderApp key={whyTinder.id} />}
-          {isHoreich && <HoreichApp key={horeich.id} />}
         </AnimatePresence>
         <AnimatePresence>{isRecents && <RecentsScreen key="recents" />}</AnimatePresence>
       </main>

@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type { TimelineEntry } from '../data/types';
 import { getProject } from '../data/projects';
-import { horeich } from '../data/horeich';
 import { categoryMeta, formatRange } from './TimelineWidget';
 import { IconButton, Button } from './Buttons';
 import { routeHref } from '../hooks/useHashRoute';
@@ -12,7 +11,7 @@ import { useApp } from '../lib/app-context';
 export function TimelineDetail({ entry }: { entry: TimelineEntry }) {
   const { back } = useApp();
   const c = categoryMeta[entry.category];
-  const projectName = entry.project ? (entry.project === horeich.id ? horeich.title : getProject(entry.project)?.name) : undefined;
+  const projectName = entry.project ? getProject(entry.project)?.name : undefined;
 
   return (
     <motion.article

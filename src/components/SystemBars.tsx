@@ -49,7 +49,7 @@ export function NavBar({ onBack, onHome, onRecents, solid, dark = false }: NavBa
   return (
     <nav
       aria-label="System navigation"
-      className={`absolute inset-x-0 bottom-0 z-50 flex h-12 items-center justify-center transition-colors duration-300 ${
+      className={`absolute inset-x-0 bottom-0 z-50 flex h-[calc(48px+var(--nav-gap))] items-center justify-center pb-[var(--nav-gap)] transition-colors duration-300 ${
         solid ? 'bg-surface' : 'bg-transparent'
       } ${dark ? 'home-dark' : ''
       }`}

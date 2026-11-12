@@ -1,6 +1,5 @@
 import { HeartHandshake, Heart, Lightbulb, MessageCircleHeart, Sparkles, GraduationCap, type LucideIcon } from 'lucide-react';
 import { MeltIcon } from '../components/icons/MeltIcon';
-import type { ProjectCategory } from './types';
 
 /* ------------------------------------------------------------------
    The "Why Tinder" app: a swipe deck where each card is one reason
@@ -34,7 +33,6 @@ export const whyTinder = {
   icon: HeartHandshake,
   iconColors: { bg: '#ff7a59', fg: '#ffffff' },
   /** Filter pills that show this app (it always shows under ALL) */
-  categories: ['social'] as ProjectCategory[],
   subtitle: 'Why I want to intern at Tinder',
   /** Line above the deck */
   intro: 'Swipe through why I want to intern at Tinder.',

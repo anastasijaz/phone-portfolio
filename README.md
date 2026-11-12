@@ -20,29 +20,28 @@ Always open the site through `npm run dev` (or `npm run preview` after a build).
 
 | What | File |
 | --- | --- |
-| Projects (home screen apps and their case-study cards) | `src/data/projects.ts` |
+| Projects (Projects page icons and their pages, Horeich.de included) | `src/data/projects.ts` |
 | Name, tagline, contact, CV, experience, education, skills, hobbies | `src/data/settings.ts` |
 | Career timeline widget | `src/data/timeline.ts` |
 | "Why Tinder" swipe cards | `src/data/whyTinder.ts` |
 | Every external link (Gmail, Maps, LinkedIn, Melt prototype, horeich.de ...) | `src/config/links.ts` |
-| Horeich.de redesign page | `src/data/horeich.ts` (screenshots in `public/assets/horeich/`) |
 | App logos (official SVGs) | `src/assets/icons/` |
 | Colors, type scale, shapes, elevation (Material 3 tokens) | `src/index.css` |
-| Images, videos, CV | `public/` |
+| Images, videos, CV (project media in `public/assets/<project>/`) | `public/` |
 
 ## Home screen layout
 
 The home screen has three pages. Swipe sideways, tap the dots, or use the arrow keys on desktop:
 
-1. **Home** (`#/`): clock, Claude shortcut widget, and Google, Gmail, Drive, Maps, Photos, Calendar, Meet, Play Store, LinkedIn, Lovable, Substack, Spotify and Settings. Calendar jumps to page 2; the others open their link from `src/config/links.ts` in a new tab.
+1. **Home** (`#/`): date, clock card, Claude shortcut panel (Claude, Voice, Photos, Projects), then Substack, Spotify, Gmail, Maps / Settings, Drive, Calendar, Meet / Play Store, Google, LinkedIn, Lovable. Calendar and Projects jump to pages 2 and 3; Settings opens Settings; the others open their link from `src/config/links.ts` in a new tab.
 2. **Calendar** (`#/calendar`): the career timeline. Tapping an entry opens its details at `#/calendar/<id>`; Back returns to the timeline.
-3. **Projects** (`#/projects`): Why Tinder, then the project apps and Horeich.de (order: `PROJECT_ORDER` in `src/screens/HomeScreen.tsx`).
+3. **Projects** (`#/projects`): Why Tinder, then Melt, ZOLLHOF, MARIE, GARMI and Horeich.de (the order of `src/data/projects.ts`; the thesis has `onHomeScreen: false`, so it only opens from the timeline or `#/thesis`).
 
-The dock (Phone, Messages, Chrome, Camera) and the Google search bar show on every page. The home screen is dark; app pages use the cream palette.
+The dock (Phone, Messages, Chrome, Camera), the search bar and the page dots show on every page. The home screen is dark (chevron wallpaper in `.wallpaper-dark`, `src/index.css`); app pages use the cream palette. The Recents button does nothing on purpose.
 
 **Back** goes one step back through what the visitor actually did. Someone who arrives on a direct link and presses Back goes to the natural parent: a timeline entry → Calendar, a project → Projects, a Settings page → Settings.
 
-**Before sharing the site**, replace the placeholders in `src/config/links.ts`: `PERSONAL_EMAIL`, `VOICE_URL`, `SUBSTACK_URL`, `SPOTIFY_URL`, `PORTFOLIO_URL` and `PHONE_LINK`. Until then those icons show "link isn't set yet" instead of opening a broken page.
+**Before sharing the site**, replace the placeholders in `src/config/links.ts`: `VOICE_URL`, `SUBSTACK_URL`, `SPOTIFY_URL`, `PORTFOLIO_URL` and `PHONE_LINK`. Until then those icons show "link isn't set yet" instead of opening a broken page.
 
 You should never need to touch the components to change content.
 
@@ -53,36 +52,36 @@ You should never need to touch the components to change content.
 Every screen has its own URL, so you can link straight to a project in an application:
 
 - `#/calendar`, `#/calendar/<entry id>`, `#/projects`
-- `#/zollhof`, `#/melt`, `#/gaming-robot`, `#/thesis`, `#/marie`, `#/horeich`, `#/why-tinder`
+- `#/melt`, `#/zollhof`, `#/marie`, `#/garmi` (old `#/gaming-robot` links redirect), `#/horeich`, `#/thesis`, `#/why-tinder`
 - `#/settings`, `#/settings/experience`, `#/settings/education`, `#/settings/skills`, `#/settings/about`
 - `#/settings/contact` (Phone dialer) and `#/settings/cv` (CV preview)
 
 ## Add a project
 
 1. Open `src/data/projects.ts`.
-2. Copy an existing project object and paste it where you want it to appear. The order in the list is the order of the icons on the home screen.
+2. Copy an existing project object and paste it where you want it to appear. The order in the list is the order of the icons on the Projects page.
 3. Change at least:
    - `id`: unique, lowercase, no spaces (it becomes the link `#/<id>`).
-   - `name`, `iconLabel` (short, shown under the icon), `tagline`, `status`, `role`, `period`, `tags`, `intro`.
+   - `name`, `iconLabel` (short, shown under the icon), `status` (one line, e.g. "On hold"), `summary` (one line).
    - `icon`: any icon from [lucide.dev/icons](https://lucide.dev/icons). Import it at the top of the file, e.g. `import { Rocket } from 'lucide-react'`. You can use an image instead: put a square image in `public/images/` and set `iconImage: '/images/my-icon.png'`.
-   - `iconColors`: one solid tile color (`bg`) and the glyph color (`fg`, white).
-   - `categories`: which home screen filter pills show it: `mobile`, `web`, `social`, `health`, `internal` (one or more).
-4. Fill in the six cards under `sections`: `problem`, `research`, `interviews`, `prototype`, `results`, `next`. Each card has a `body` and can also have `bullets`, `quotes`, `metrics` and `media`. Set `title` on a card to rename it (e.g. "Research question" for the thesis).
-5. Optional: add the project to the timeline in `src/data/timeline.ts` with `link: '<id>'`.
+   - `iconColors`: one solid circle color (`bg`) and the glyph color (`fg`).
+4. Add `sections`: a list of cards, each with a `title` and a `body` and/or `bullets` (and optional `media`). Use as many as the project needs.
+5. Optional: `media` (shown after the sections) and `buttons` (`{ label, href }`, each opens in a new tab). Put the URLs in `src/config/links.ts`.
+6. Optional: `onHomeScreen: false` keeps the page reachable at `#/<id>` without an icon. Link it from the timeline in `src/data/timeline.ts` with `project: '<id>'`.
 
-### Media in cards
+### Media
 
 ```ts
 media: [
-  { type: 'image', src: '/images/zollhof-flow.png', alt: 'Onboarding flow', caption: 'Onboarding' },
-  { type: 'video', src: '/videos/zollhof-demo-1.mp4', poster: '/images/zollhof-cover.png', caption: 'Demo' },
+  { type: 'image', src: '/assets/horeich/after.png', alt: 'horeich.de after the redesign', caption: 'After' },
+  { type: 'video', src: '/assets/zollhof/checklist.mp4', caption: 'Checklist' },
   { type: 'figma', title: 'Zollhof prototype', embedUrl: 'https://embed.figma.com/proto/...' },
 ]
 ```
 
 - **Figma:** in Figma, click *Share* → *Copy embed code*, then paste only the `src="..."` URL from the iframe into `embedUrl`. Make sure the file's link sharing is set to "Anyone with the link can view".
 - **Videos:** keep them small (720p H.264 MP4, ideally under 10 MB). For example:
-  `ffmpeg -i input.mov -vf "scale=-2:720" -c:v libx264 -crf 28 -preset slow -an -movflags +faststart public/videos/zollhof-demo-1.mp4`
+  `ffmpeg -i input.mov -vf "scale=-2:720" -c:v libx264 -crf 28 -preset slow -an -movflags +faststart public/assets/zollhof/checklist.mp4`
 - Missing images, videos or Figma links show a clearly marked placeholder instead of breaking.
 
 ## Edit the "Why Tinder" app

@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { Settings } from 'lucide-react';
 import { getProject } from '../data/projects';
 import { whyTinder } from '../data/whyTinder';
-import { horeich } from '../data/horeich';
 import { Button } from '../components/Buttons';
 import { Pressable } from '../components/Pressable';
 import { routeHref } from '../hooks/useHashRoute';
@@ -13,14 +12,11 @@ const appInfo = (path: string) => {
   if (key === 'settings') {
     return { name: 'Settings', subtitle: 'Profile, CV and contact', icon: Settings, colors: { bg: '#6b5a54', fg: '#ffffff' } };
   }
-  if (key === horeich.id) {
-    return { name: horeich.title, subtitle: horeich.line, icon: horeich.icon, colors: horeich.iconColors };
-  }
   if (key === whyTinder.id) {
     return { name: whyTinder.appName, subtitle: whyTinder.subtitle, icon: whyTinder.icon, colors: whyTinder.iconColors };
   }
   const p = getProject(key);
-  return p ? { name: p.name, subtitle: p.tagline, icon: p.icon, colors: p.iconColors } : null;
+  return p ? { name: p.name, subtitle: p.summary, icon: p.icon, colors: p.iconColors } : null;
 };
 
 /** Android "Recents" overview: recently opened apps as cards. */
