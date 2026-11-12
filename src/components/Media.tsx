@@ -26,8 +26,9 @@ function Video({ src, poster, caption }: { src: string; poster?: string; caption
         <Placeholder icon={VideoOff} title="[PLACEHOLDER] Demo video" hint={`Add the compressed video at public${src}`} />
       ) : (
         <video
-          className="aspect-video w-full rounded-shape-l bg-black object-contain"
-          src={src}
+          className="mx-auto block max-h-[520px] w-auto max-w-full rounded-shape-l bg-black"
+          // "#t=0.1" makes browsers show the first frame as a preview when there is no poster
+          src={poster ? src : `${src}#t=0.1`}
           poster={poster}
           controls
           playsInline

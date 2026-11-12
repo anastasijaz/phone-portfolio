@@ -115,9 +115,12 @@ export const projects: Project[] = [
     ],
     media: [
       { type: 'video', src: '/assets/zollhof/checklist.mp4', caption: 'Checklist [PLACEHOLDER: confirm caption]' },
+      { type: 'video', src: '/assets/zollhof/checklist-2.mp4', caption: 'Checklist, part 2 [PLACEHOLDER: confirm caption]' },
       { type: 'video', src: '/assets/zollhof/file-upload.mp4', caption: 'File upload [PLACEHOLDER: confirm caption]' },
       { type: 'video', src: '/assets/zollhof/digital-estate.mp4', caption: 'Digital estate [PLACEHOLDER: confirm caption]' },
+      { type: 'video', src: '/assets/zollhof/digital-estate-2.mp4', caption: 'Digital estate, part 2 [PLACEHOLDER: confirm caption]' },
       { type: 'video', src: '/assets/zollhof/shared-with.mp4', caption: 'Shared with [PLACEHOLDER: confirm caption]' },
+      { type: 'video', src: '/assets/zollhof/repatriation-abroad.mp4', caption: 'Repatriation from abroad [PLACEHOLDER: confirm caption]' },
     ],
     buttons: [{ label: 'Figma', href: ZOLLHOF_FIGMA_URL }],
   },
