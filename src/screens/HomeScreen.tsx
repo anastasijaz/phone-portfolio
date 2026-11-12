@@ -26,7 +26,7 @@ import substackLogo from '../assets/icons/substack.svg';
 import spotifyLogo from '../assets/icons/spotify.svg';
 import chromeLogo from '../assets/icons/chrome.svg';
 
-const PAGES = ['Home', 'Calendar', 'Projects'] as const;
+const PAGES = ['Projects', 'Calendar', 'Home'] as const;
 
 /**
  * An icon on the home screen. Exactly one of:
@@ -42,7 +42,7 @@ interface HomeApp {
   route?: string;
 }
 
-/** Page 1 app grid, row by row */
+/** Page 3 (Home) app grid, row by row */
 const homeApps: HomeApp[] = [
   { label: 'Substack', logo: substackLogo, href: links.substack },
   { label: 'Spotify', logo: spotifyLogo, href: links.spotify },
@@ -60,7 +60,7 @@ const homeApps: HomeApp[] = [
   { label: 'Lovable', logo: lovableLogo, href: links.lovable },
 ];
 
-/** Page 3: "Why Tinder", then the projects in the order of src/data/projects.ts */
+/** Page 1: "Why Tinder", then the projects in the order of src/data/projects.ts */
 const projectApps: (HomeApp & { id: string; ariaLabel: string })[] = [
   { id: whyTinder.id, label: whyTinder.appName, ariaLabel: `Open ${whyTinder.appName}`, icon: whyTinder.icon, colors: whyTinder.iconColors, route: whyTinder.id },
   ...homeScreenProjects.map((p) => ({ id: p.id, label: p.iconLabel, ariaLabel: `Open project: ${p.name}`, icon: p.icon, colors: p.iconColors, route: p.id })),
@@ -163,21 +163,11 @@ export function HomeScreen({ hidden }: { hidden: boolean }) {
           animate={{ x: -page * width }}
           transition={{ type: 'spring', stiffness: 320, damping: 36 }}
         >
-          {/* Page 1: Home */}
-          <section style={{ width }} className={`${pagePad} flex flex-col gap-3`} aria-label="Home" {...inertProps(page !== 0)}>
-            <DateLine />
-            <div className="grid h-[180px] shrink-0 grid-cols-2 gap-3">
-              <ClockCard />
-              <ClaudePanel
-                claude={{ href: links.claude }}
-                voice={tile(links.voice, 'Voice')}
-                photos={{ href: links.photos }}
-                onProjects={() => setPage(2)}
-              />
-            </div>
-            <nav aria-label="Apps" className="grid grid-cols-4 gap-x-1 gap-y-1 pt-2">
-              {homeApps.map((a) => (
-                <div key={a.label}>{renderApp(a, a.route === 'calendar' ? { ariaLabel: 'Calendar: open my timeline' } : {})}</div>
+          {/* Page 1: Projects (the start page, #/) */}
+          <section style={{ width }} className={pagePad} aria-label="Projects" {...inertProps(page !== 0)}>
+            <nav aria-label="Projects" className="grid grid-cols-4 gap-x-1 gap-y-2">
+              {projectApps.map((a) => (
+                <div key={a.id}>{renderApp(a, { ariaLabel: a.ariaLabel })}</div>
               ))}
             </nav>
           </section>
@@ -187,11 +177,21 @@ export function HomeScreen({ hidden }: { hidden: boolean }) {
             {openEntry ? <TimelineDetail key={openEntry.id} entry={openEntry} /> : <TimelineWidget fill />}
           </section>
 
-          {/* Page 3: Projects */}
-          <section style={{ width }} className={pagePad} aria-label="Projects" {...inertProps(page !== 2)}>
-            <nav aria-label="Projects" className="grid grid-cols-4 gap-x-1 gap-y-2">
-              {projectApps.map((a) => (
-                <div key={a.id}>{renderApp(a, { ariaLabel: a.ariaLabel })}</div>
+          {/* Page 3: Home (#/home) */}
+          <section style={{ width }} className={`${pagePad} flex flex-col gap-3`} aria-label="Home" {...inertProps(page !== 2)}>
+            <DateLine />
+            <div className="grid h-[180px] shrink-0 grid-cols-2 gap-3">
+              <ClockCard />
+              <ClaudePanel
+                claude={{ href: links.claude }}
+                voice={tile(links.voice, 'Voice')}
+                photos={{ href: links.photos }}
+                onProjects={() => setPage(0)}
+              />
+            </div>
+            <nav aria-label="Apps" className="grid grid-cols-4 gap-x-1 gap-y-1 pt-2">
+              {homeApps.map((a) => (
+                <div key={a.label}>{renderApp(a, a.route === 'calendar' ? { ariaLabel: 'Calendar: open my timeline' } : {})}</div>
               ))}
             </nav>
           </section>

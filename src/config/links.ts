@@ -18,8 +18,10 @@ export const CV_URL = 'https://claude.ai/artifact/2Ku1jADPXmixjPGue9JE1V';
 export const CLAUDE_URL = 'https://claude.ai';
 export const VOICE_URL = 'VOICE_URL';
 
+/** Substack: replace with your own profile, e.g. https://yourname.substack.com */
+export const SUBSTACK_URL = 'https://substack.com';
+
 /** Apps without a link yet */
-export const SUBSTACK_URL = 'SUBSTACK_URL';
 export const SPOTIFY_URL = 'SPOTIFY_URL';
 /** Chrome in the dock */
 export const PORTFOLIO_URL = 'PORTFOLIO_URL';

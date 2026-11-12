@@ -17,8 +17,8 @@ import { BEZEL, DEVICE_H, DEVICE_W, SCREEN_H, SCREEN_W, useFrameScale } from './
 
 const SETTINGS_SUBS = ['experience', 'education', 'skills', 'about', 'contact', 'cv'];
 
-/** Home screen pages and their routes: #/ (Home), #/calendar, #/projects */
-export const HOME_PAGE_ROUTES = ['', 'calendar', 'projects'] as const;
+/** Home screen pages and their routes: #/ (Projects, the start page), #/calendar, #/home (old #/projects links fall back to #/) */
+export const HOME_PAGE_ROUTES = ['', 'calendar', 'home'] as const;
 
 /** Height of the status bar row (clock, signal, battery) */
 const STATUS_ROW = 36;
@@ -31,15 +31,15 @@ const NAV_GAP_FRAMED = 8;
 
 /**
  * Where "back" goes when there is no earlier screen in this visit (someone opened a deep link).
- * Projects → Projects page, timeline details → Calendar, settings pages → Settings.
+ * Projects → Projects page (#/), timeline details → Calendar, settings pages → Settings.
  */
 function fallbackParent(segments: string[]): string | null {
   const [top, sub] = segments;
   if (!top) return null;
   if (top === 'calendar') return sub ? 'calendar' : '';
   if (top === 'settings') return sub ? 'settings' : '';
-  if (top === 'projects' || top === 'recents') return '';
-  return 'projects'; // a project, Why Tinder or Horeich.de
+  if (top === 'home' || top === 'recents') return '';
+  return ''; // a project, Why Tinder or Horeich.de: back to the Projects page
 }
 
 export default function App() {
@@ -75,7 +75,7 @@ export default function App() {
     if (appKey) setRecents((rs) => [path, ...rs.filter((r) => r.split('/')[0] !== appKey)].slice(0, 8));
     const name =
       project?.name ??
-      (isSettings ? 'Settings' : isWhyTinder ? whyTinder.appName : top === 'calendar' ? 'Calendar' : top === 'projects' ? 'Projects' : null);
+      (isSettings ? 'Settings' : isWhyTinder ? whyTinder.appName : top === 'calendar' ? 'Calendar' : top === 'home' ? 'Home' : null);
     document.title = name ? `${name} · ${profile.name}` : `${profile.name} · Product Portfolio`;
   }, [path, appKey, isSettings, isWhyTinder, project, top]);
 

@@ -33,15 +33,15 @@ Always open the site through `npm run dev` (or `npm run preview` after a build).
 
 The home screen has three pages. Swipe sideways, tap the dots, or use the arrow keys on desktop:
 
-1. **Home** (`#/`): date, clock card, Claude shortcut panel (Claude, Voice, Photos, Projects), then Substack, Spotify, Gmail, Maps / Settings, Drive, Calendar, Meet / Play Store, Google, LinkedIn, Lovable. Calendar and Projects jump to pages 2 and 3; Settings opens Settings; the others open their link from `src/config/links.ts` in a new tab.
+1. **Projects** (`#/`, the start page): Why Tinder, then Melt, ZOLLHOF, MARIE, GARMI and Horeich.de (the order of `src/data/projects.ts`; the thesis has `onHomeScreen: false`, so it only opens from the timeline or `#/thesis`). Old `#/projects` links land here too.
 2. **Calendar** (`#/calendar`): the career timeline. Tapping an entry opens its details at `#/calendar/<id>`; Back returns to the timeline.
-3. **Projects** (`#/projects`): Why Tinder, then Melt, ZOLLHOF, MARIE, GARMI and Horeich.de (the order of `src/data/projects.ts`; the thesis has `onHomeScreen: false`, so it only opens from the timeline or `#/thesis`).
+3. **Home** (`#/home`): date, clock card, Claude shortcut panel (Claude, Voice, Photos, Projects), then Substack, Spotify, Gmail, Maps / Settings, Drive, Calendar, Meet / Play Store, Google, LinkedIn, Lovable. Calendar and Projects jump to pages 2 and 1; Settings opens Settings; the others open their link from `src/config/links.ts` in a new tab. The Home button in the nav bar goes to page 1 (Projects).
 
 The dock (Phone, Messages, Chrome, Camera), the search bar and the page dots show on every page. The home screen is dark (chevron wallpaper in `.wallpaper-dark`, `src/index.css`); app pages use the cream palette. The Recents button does nothing on purpose.
 
 **Back** goes one step back through what the visitor actually did. Someone who arrives on a direct link and presses Back goes to the natural parent: a timeline entry → Calendar, a project → Projects, a Settings page → Settings.
 
-**Before sharing the site**, replace the placeholders in `src/config/links.ts`: `VOICE_URL`, `SUBSTACK_URL`, `SPOTIFY_URL`, `PORTFOLIO_URL` and `PHONE_LINK`. Until then those icons show "link isn't set yet" instead of opening a broken page.
+**Before sharing the site**, replace the placeholders in `src/config/links.ts`: `VOICE_URL`, `SPOTIFY_URL`, `PORTFOLIO_URL` and `PHONE_LINK`. Until then those icons show "link isn't set yet" instead of opening a broken page. Substack currently opens substack.com; set `SUBSTACK_URL` to your own profile.
 
 You should never need to touch the components to change content.
 
@@ -51,7 +51,7 @@ You should never need to touch the components to change content.
 
 Every screen has its own URL, so you can link straight to a project in an application:
 
-- `#/calendar`, `#/calendar/<entry id>`, `#/projects`
+- `#/calendar`, `#/calendar/<entry id>`, `#/home`
 - `#/melt`, `#/zollhof`, `#/marie`, `#/garmi` (old `#/gaming-robot` links redirect), `#/horeich`, `#/thesis`, `#/why-tinder`
 - `#/settings`, `#/settings/experience`, `#/settings/education`, `#/settings/skills`, `#/settings/about`
 - `#/settings/contact` (Phone dialer) and `#/settings/cv` (CV preview)
