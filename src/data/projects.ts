@@ -56,11 +56,15 @@ export const projects: Project[] = [
         body: 'None formally tested yet.',
       },
       {
+        title: 'What I’d improve',
+        body: 'The “It’s a match” animation. I’d redesign it to make that moment more engaging.',
+      },
+      {
         title: 'Next',
         body: 'Move off Lovable into a proper build and plan the marketing. Melt is on hold for now.',
       },
     ],
-    buttons: [{ label: 'Open prototype', href: MELT_URL }],
+    buttons: [{ label: 'Open web app', href: MELT_URL }],
   },
   {
     id: 'zollhof',

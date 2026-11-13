@@ -29,7 +29,8 @@ export const PORTFOLIO_URL = 'PORTFOLIO_URL';
 export const PHONE_LINK = 'PHONE_LINK';
 
 /** Project links */
-export const MELT_URL = 'https://id-preview--52fda359-3a0f-4108-8cee-c2e0b8cac1d0.lovable.app/discover';
+/** Melt web app (public) */
+export const MELT_URL = 'https://profile-builder-studio.vercel.app/discover';
 export const HOREICH_URL = 'https://horeich.de';
 export const HOREICH_SOFTWARE_URL = 'https://horeich.de/plattform/';
 export const HOREICH_FIGMA_URL = 'https://www.figma.com/design/37kg0EFeniDBIfTlZiaT4y/Horeich-Webseite?node-id=0-1&p=f&t=BZSFdHhhPG1HEq93-0';
